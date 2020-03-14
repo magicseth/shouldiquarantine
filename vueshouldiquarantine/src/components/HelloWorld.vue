@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>NOT LIVE YET --- Should you self-quarantine? --- NOT YET WORKING</h1>
+    <h1>NOT LIVE YET --- Should you self-quarantine? --- NOT YET WORKING!!</h1>
     <template v-for="(question,index) in questions">
       <question v-if="index == currentquestion" :question="question" :key="index" />
     </template>
