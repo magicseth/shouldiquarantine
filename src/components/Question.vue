@@ -89,7 +89,7 @@ input {
   font-size: xx-large;
   text-align: center;
 }
-.answer.selected{background-color:rgb(196, 0, 0)}
+.answer.selected{background-color:rgb(30, 173, 95)}
 .answer{
   background-color:rgba(207, 207, 207, 0.601);
   border: 3px solid #444;

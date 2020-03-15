@@ -43,7 +43,7 @@
       <h2>What is Self-Quarantine?</h2>
       <ul class="left">
         <li>Self-Quarantine is the physical separation of anyone reasonably believed 
-          to have been exposed to a communicable disease, to prevent its spread.</li>
+          to have been exposed to COVID-19, to prevent its spread.</li>
       </ul>
       <h2>What should I do?</h2>
       <ul class="left">
@@ -95,7 +95,7 @@
         <li>Self-Protective Isolation helps you avoid contracting COVID-19 from others, 
           because you have higher-than-average risk factors.</li>
         <li>People start spreading COVID-19 a week before they show symptoms, 
-          so it is important to self-isolate even if your community doesn't appear ill.</li>
+          so it is important to self-isolate even if no one in your community appears ill.</li>
       </ul>
       <br>
       <br><span class="underline" @click="selectedpage='more'">Learn More</span>
@@ -118,14 +118,14 @@
         <li>- Avoid touching your face</li>
         <li>- Cancel any gatherings of people you are in charge of</li>
         <li>- Prepare to social distance for 2 to 4 weeks</li>
-        <li>- Details: <a href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">Center for Public Health Initiatives</a></li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Center for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
         <li>Social Distancing helps slow down the spread of COVID-19, which is 
           critical because of the rate at which it is overwhelming our healthcare system.</li>
         <li>People start spreading COVID-19 a week before they show symptoms, so it 
-          is important to practice social distancing even if your community doesn't appear ill.</li>
+          is important to practice social distancing even if no one in your community appears ill.</li>
       </ul>
       <br>
       <br><span class="underline" @click="selectedpage='more'">Learn More</span>
@@ -135,32 +135,40 @@
     <div v-if="selectedpage== 'more'">
       <h2>Terms</h2>
       <ul class="left">
-        <li>- The CDC uses the word Quarantine only for individuals 
-          who are NOT yet symptomatic. In this application, we allow Quarantine 
+        <li>- The CDC uses the word <strong>QUARANTINE</strong> only for individuals 
+          who are NOT yet symptomatic. In this application, we allow quarantine 
           to cover those who are expressing symptoms already.</li>
-        <li>- The CDC uses the word Isolation to refer to individuals who are 
+        <li>- The CDC uses the word <strong>ISOLATION</strong> to refer to individuals who are 
           infected and infectious. In this application, we use the word to refer 
-          to individuals practicing an extreme form of Social Distancing.</li>
-        <li>- The CDC defines the term Close Contact as being within approximately 
+          to individuals practicing an extreme form of social distancing.</li>
+        <li>- The CDC defines the term <strong>CLOSE CONTACT</strong> as being within approximately 
           6 feet of a COVID-19 case for a prolonged period of time, or having direct 
           contact with infectious secretions of a COVID-19 case (e.g. being coughed on).</li>
       </ul>
       <h2>Methodology</h2>
       <ul class="left">
-        <li>- There are 4 symptoms that result in a recommendation of Emergency Room visit: difficutly breathing, chest pain, blue coloration, confusion.</li>
-        <li>- There are 2 symptoms that result in a recommendation of Self-Quarantine: fever, persistent cough.</li>
-        <li>- There are 4 zones of international travel that result in a recommendation of Self-Quarantine: China, Europe, Iran, South Korea.</li>
-        <li>- Being in close contact with someone diagnosed with COVID-19 results in a recommendation of Self-Quarantine.</li>
-        <li>- All other selections will result in either a recommendation of Self-Protective Isolation of Social Distancing.</li>
+        <li>- There are 4 symptoms that result in a recommendation of an emergency room visit: difficulty breathing, chest pain, blue coloration, confusion.</li>
+        <li>- There are 2 symptoms that result in a recommendation of <i>Self-Quarantine</i>: fever, persistent cough.</li>
+        <li>- There are 4 zones of international travel that result in a recommendation of <i>Self-Quarantine</i>: China, Europe, Iran, South Korea.</li>
+        <li>- Being in close contact with someone diagnosed with COVID-19 results in a recommendation of <i>Self-Quarantine</i>.</li>
+        <li>- All other selections will result in either a recommendation of <i>Self-Protective Isolation</i> or <i>Social Distancing</i>.</li>
         <li>- All other questions (age and comorbidity) use Bayesian statistics to estimate the likelihood of mortality relative to the average confirmed case.</li>
+        <li>- If a respondent's submission exceeds the average likely mortality, this application recommends <i>Self-Protective Isolation</i></li>
+        <li>- All other respondents are recommended to practice <i>Social Distancing</i>.</li>
+        <li>- These statistics are collected from <a href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a></li>
         <li>- Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>
-        <li>- </li>
-        <li>- </li>
-        <li>- </li>
       </ul>
       <h2>Resources</h2>
       <ul class="left">
-        <li>- </li>
+        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/get-your-household-ready-for-COVID-19.html">CDC: Preparedness Plan</a></li>
+        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">CDC: When You're Sick</a></li>
+        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">CDC: When You're High Risk</a></li>
+        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/php/risk-assessment.html">CDC: Terminology</a></li>
+        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/travelers/after-travel-precautions.html">CDC: Travel Recommendations</a></li>
+        <li>- <a href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">The Atlantic: Conversational Exploration of Social Distancing</a></li>
+        <li>- <a href="https://www.worldometers.info/coronavirus/">Worldometers:Frequently Updating COVID-19 Statistics</a></li>
+        <li>- <a href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Tomas Pueyo: Why You Must Act Now</a></li>
+        <li>- <a href="www.facebook.com/groups/670932227050506">Community Makers: Open Source COVID19 Medical Supplies</a></li>
       </ul>
       <br>
       <button @click="selectedpage='results'">BACK</button>
@@ -210,7 +218,7 @@ export default {
       currentquestion: "zip",
       questions: {
         zip: {
-          question: "Enter you zipcode to start",
+          question: "Enter your zipcode to start",
           type: "text",
           placeholder: "Ex. 12345",
           selected: [],
@@ -238,7 +246,7 @@ export default {
             "Blueish Lips or Face",
             "Confusion or Inability to Awaken",
             "Fever",
-            "Persistent Coughing",
+            "Persistent Cough",
             "Sore Throat",
             "None of These",
           ],
@@ -270,7 +278,12 @@ export default {
         "travel-detail": {
           question: "To which countries?",
           type: "multiple",
-          answers: ["China", "Europe", "Iran", "South Korea", "None"],
+          answers: [
+            "China", 
+            "Europe", 
+            "Iran", 
+            "South Korea", 
+            "None of These"],
           selected: [],
           logic: {
             "-1": "contact",
@@ -285,7 +298,7 @@ export default {
           question:
             "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: ["YES", "I DON'T KNOW"],
           selected: [],
           logic: {
             "-1": "contact",
@@ -308,7 +321,12 @@ export default {
         "age-detail": {
           question: "What is your age range?",
           type: "radio",
-          answers: ["40-49", "50-59", "60-69", "70-79", "80+"],
+          answers: [
+            "40-49", 
+            "50-59", 
+            "60-69", 
+            "70-79", 
+            "80+"],
           selected: [],
           logic: {
             "-1": "age",
@@ -336,10 +354,10 @@ export default {
           type: "multiple",
           answers: [
             "Cancer",
-            "High blood pressure",
-            "Lung disease (like COPD)",
+            "High Blood Pressure",
+            "Lung Disease (e.g. COPD)",
             "Diabetes",
-            "Heart disease",
+            "Heart Disease",
             "None of These",
           ],
           selected: [],
