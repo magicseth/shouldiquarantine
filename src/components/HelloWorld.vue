@@ -30,112 +30,115 @@ export default {
           type: "text"
         },
         {
-          question: "Are you expressing any of these symptons?",
-          type: "multiple",
-          answers: [
-            "Difficulty Breathing (when active)",
-            "Difficulty Breathing (when inactive)",
-            "Difficulty Breathing (when active)",
-            "Sneezing",
-            "Fever",
-            "Persistent Chest Pain",
-            "Coughing",
-            "Blueish Lips or Face",
-            "Confusion, Low Arousal"
-          ],
-          selected: []
-        },
-        {
-          question: "Have you traveled internationally recently",
+          id:"symptoms",
+          question: "Are you expressing any symptoms?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Yes > symptoms-detail
         },
         {
-          question: "To which Countries",
+          id:"symptoms-detail",
+          question: "Did you newly develop any of these symptoms?",
+          type: "multiple",
+          answers: [
+            "Fever",
+            "Persistent Coughing",
+            "Difficulty Breathing (when not active)",
+            "Persistent Chest Pain",
+            "Blueish Lips or Face",
+            "Confusion or Inability to Awaken"
+          ],
+          selected: []
+          // Breathing | Pain | Blue | Confusion > Emergency
+          // Fever | Cough > Quarantine
+        },
+        {
+          id:"travel",
+          question: "Have you traveled internationally within the last 2 weeks?",
+          type: "one",
+          answers: ["YES", "NO"],
+          selected: []
+          // Yes > travel-detail
+        },
+        {
+          id:"travel-detail",
+          question: "To which countries?",
           type: "multiple",
           answers: ["China", "Europe", "Iran", "South Korea"],
           selected: []
+          // Any > Quarantine
         },
         {
-          question: "Have you been tested for COVID-19",
+          id:"contact",
+          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Yes > Quarantine
         },
         {
-          question: "What were the results?",
-          type: "one",
-          answers: ["Positive", "Negative"],
-          selected: []
-        },
-        {
-          question:
-            "Have you been in contact with someone positively diagnosed with COVID-19",
+          id:"doctor",
+          question: "Have you received personal recommendations from a doctor regarding COVID-19?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Yes > Doctor's Orders
         },
-
         {
-          question: "What age",
-          type: "one",
-          answers: ["40-49", "50-59", "60-69", "70-79", "80-89", "90+"],
-          selected: []
-        },
-
-        {
-          question: "Has a doctor recommended that you self-quarantine?",
+          id:"age",
+          question: "Are you more than 40 years old?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Yes > age-detail
         },
         {
-          question: "Do you have any of these conditions",
+          id:"age-detail",
+          question: "What is your age range?",
+          type: "one",
+          answers: ["40-49", "50-59", "60-69", "70-79", "80+"],
+          selected: []
+          // Bayes
+        },
+        {
+          id:"existing",
+          question: "Do you have any existing conditions?",
+          type: "one",
+          answers: ["YES", "NO"],
+          selected: []
+          // Yes > existing-detail
+        },
+        {
+          id:"existing-detail",
+          question: "Which of these conditions do you have?",
           type: "multiple",
           answers: [
-            "Smoker",
             "Cancer",
             "Hypertension",
-            "Chrnoic Respiratory Disease",
+            "Chronic respiratory disease",
             "Diabetes",
-            "Cardiovacular Disease"
+            "Cardiovacular disease"
           ],
           selected: []
+          // Bayes
         },
-
         {
-          question: "Were you assigned male at birth?",
+          id:"smoke",
+          question: "Do you smoke?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Bayes
         },
         {
-          question: "Are you confident in your health insurance",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-        },
-
-        {
-          question: "Have you traveled through a major airport hub recently?",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-        },
-        {
+          id:"germophobe",
           question: "Has someone been coughing or sneezing near you?",
           type: "one",
           answers: ["YES", "NO"],
           selected: []
+          // Any > no change
         },
-
-        {
-          question: "Are you confident in your health insurance",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-        }
       ]
     };
   }
