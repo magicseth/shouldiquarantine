@@ -10,6 +10,9 @@
     <p>
       !!! NOT YET WORKING !!!
     </p>
+    <p class="footer">
+      Personal recommendations from a doctor regarding COVID-19, supersede any from this site.
+    </p>
   </div>
 </template>
 
@@ -49,20 +52,6 @@ export default {
           logic: {
             "-1": "symptoms"}
         },
-        // "doctor": {
-        //   question: "Have you received personal recommendations from a doctor regarding COVID-19?",
-        //   type: "radio",
-        //   answers: ["YES", "NO"],
-        //   // answers: {
-        //   //   "YES":"DOCTOR", 
-        //   //   "NO": "symptoms"},
-        //   selected: [],
-        //   logic: {
-        //     "-1": "doctor",
-        //     "0": "DOCTOR", // XXX Doctor's Orders
-        //     "1": "symptoms"
-        //   }
-        // },
         "symptoms": {
           question: "Are you expressing any symptoms?",
           type: "radio",
@@ -83,7 +72,9 @@ export default {
             "Blueish Lips or Face",
             "Confusion or Inability to Awaken",
             "Fever",
-            "Persistent Coughing"
+            "Persistent Coughing",
+            "Sore Throat",
+            "None of These",
           ],
           selected: [],
           logic: {
@@ -94,6 +85,8 @@ export default {
             "3": "EMERGENCY", // XXX EMERGENCY
             "4": "QUARANTINE", // XXX QUARANTINE
             "5": "QUARANTINE", // XXX QUARANTINE
+            "6": "travel",
+            "7": "travel",
           }
         },
         "travel": {
@@ -110,7 +103,7 @@ export default {
         "travel-detail": {
           question: "To which countries?",
           type: "multiple",
-          answers: ["China", "Europe", "Iran", "South Korea"],
+          answers: ["China", "Europe", "Iran", "South Korea", "None"],
           selected: [],
           logic: {
             "-1": "contact",
@@ -118,6 +111,7 @@ export default {
             "1": "QUARANTINE", // XXX QUARANTINE
             "2": "QUARANTINE", // XXX QUARANTINE
             "3": "QUARANTINE", // XXX QUARANTINE
+            "4": "contact",
           }
         },
         "contact": {
@@ -159,46 +153,35 @@ export default {
           // XXX Bayes
         },
         "existing": {
-          question: "Do you have any existing conditions?",
-          type: "radio",
-          answers: ["YES", "NO"],
-          selected: [],
-          logic: {
-            "-1": "smoke",
-            "0": "existing-detail",
-            "1": "smoke",
-          }
-        },
-        "existing-detail": {
-          question: "Which of these conditions do you have?",
-          type: "multiple",
-          answers: [
-            "Cancer",
-            "Hypertension",
-            "Chronic respiratory disease",
-            "Diabetes",
-            "Cardiovacular disease"
-          ],
-          selected: [],
-          logic: {
-            "-1": "smoke",
-            "0": "smoke",
-            "1": "smoke",
-            "2": "smoke",
-            "3": "smoke",
-            "4": "smoke",
-          }
-          // XXX Bayes
-        },
-        "smoke": {
-          question: "Do you smoke?",
+          question: "Do you have any existing medical conditions?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
             "-1": "germophobe",
+            "0": "existing-detail",
+            "1": "germophobe",
+          }
+        },
+        "existing-detail": {
+          question: "Which of these medical conditions do you currently have?",
+          type: "multiple",
+          answers: [
+            "Cancer",
+            "High blood pressure",
+            "Lung disease (like COPD)",
+            "Diabetes",
+            "Heart disease",
+            "None of These",
+          ],
+          selected: [],
+          logic: {
+            "-1": "germophobe",
             "0": "germophobe",
             "1": "germophobe",
+            "2": "germophobe",
+            "3": "germophobe",
+            "4": "germophobe",
           }
           // XXX Bayes
         },
@@ -209,8 +192,8 @@ export default {
           selected: [],
           logic: {
             "-1": "CALCULATE", // XXX CALCULATE
-            "0": "CALCULATE", // XXX CALCULATE
-            "1": "CALCULATE", // XXX CALCULATE
+            "0": "SOCIAL DISTANCING", // XXX CALCULATE
+            "1": "SELF ISOLATION", // XXX CALCULATE
           }
         },
       }
