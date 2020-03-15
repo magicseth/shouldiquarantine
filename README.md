@@ -4,13 +4,12 @@ ShouldIQuarantine.com
 
 ## Project setup
 
-This project uses Vue and Firebase and Node.  It will probably use Vuex soon
+This project uses Vue and Firebase and Node.
 
 To get your development environment ready,
 
 1) Install [Node.js](https://nodejs.org/en/)
 1) Install [vue cli](https://cli.vuejs.org/)
-2) cd vueshouldiquarantine
 3) npm install
 5) npm run serve
 
