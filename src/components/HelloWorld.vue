@@ -6,7 +6,7 @@
         <question v-if="qid == currentquestion" :question="question" :key="index" />
       </template>
 
-      <button @click="nextQuestion()">Next</button>
+      <button @click="nextQuestion()">{{nextlabel}}</button>
       <p>!!! NOT YET WORKING !!!</p>
     </div>
     <div v-if="selectedpage== 'about'">Made with love</div>
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       selectedpage: "questions",
+      nextlabel: "Next",
       currentquestion: "zip",
       questions: {
         zip: {
