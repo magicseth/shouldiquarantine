@@ -1,13 +1,15 @@
 <template>
   <div class="hello">
-    <h1>Should You Self-Quarantine?</h1>
+    <h1>ShouldIQuarantine.com</h1>
     <template v-for="(question, qid, index) in questions">
       <question v-if="qid == currentquestion" :question="question" :key="index" />
     </template>
 
 
     <button @click="nextQuestion()">Next</button>
-     --- NOT YET WORKING!!
+    <p>
+      !!! NOT YET WORKING !!!
+    </p>
   </div>
 </template>
 
@@ -25,16 +27,14 @@ export default {
     nextQuestion() {
       var sels = this.questions[this.currentquestion].selected
       var logic = this.questions[this.currentquestion].logic
-      
       if (sels.length == 0){ // If they didn't select anything
         this.currentquestion = logic["-1"] // Perform some default action
       } else {
-        if (this.questions[logic[sels[0]]]){ // If the option they chose directs to an existing page
-          this.currentquestion = logic[sels[0]] // TODO This could be more intelligent than choosing the lowest number...
-        } else {
-          alert("You should be directed to info about "+logic[sels[0]]) // TODO Direct all XXX below to informational pages
-        }
-      } 
+        this.currentquestion = logic[sels[0]] // TODO This could be more intelligent than choosing the lowest number...
+      }
+      if (!this.questions[this.currentquestion]){
+        alert("You should be directed to info about "+this.currentquestion) // TODO Direct all XXX below to informational pages
+      }
     }
   },
   data() {
@@ -44,21 +44,25 @@ export default {
         "zip": {
           question: "Enter you zipcode to start",
           type: "text",
+          placeholder: "Ex. 12345",
           selected: [],
           logic: {
-            "-1": "doctor"}
+            "-1": "symptoms"}
         },
-        "doctor": {
-          question: "Have you received personal recommendations from a doctor regarding COVID-19?",
-          type: "radio",
-          answers: ["YES", "NO"],
-          selected: [],
-          logic: {
-            "-1": "doctor",
-            "0": "DOCTOR", // XXX Doctor's Orders
-            "1": "symptoms"
-          }
-        },
+        // "doctor": {
+        //   question: "Have you received personal recommendations from a doctor regarding COVID-19?",
+        //   type: "radio",
+        //   answers: ["YES", "NO"],
+        //   // answers: {
+        //   //   "YES":"DOCTOR", 
+        //   //   "NO": "symptoms"},
+        //   selected: [],
+        //   logic: {
+        //     "-1": "doctor",
+        //     "0": "DOCTOR", // XXX Doctor's Orders
+        //     "1": "symptoms"
+        //   }
+        // },
         "symptoms": {
           question: "Are you expressing any symptoms?",
           type: "radio",
@@ -71,7 +75,7 @@ export default {
           }
         },
         "symptoms-detail": {
-          question: "Did you newly develop any of these symptoms?",
+          question: "Have you newly developed any of these symptoms?",
           type: "multiple",
           answers: [
             "Difficulty Breathing (when not active)",
@@ -220,6 +224,11 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
+h1 {
+  font-size: xx-large;
+  color: rgb(68, 140, 255);
+  margin: 40px 0 0;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -230,5 +239,16 @@ li {
 }
 a {
   color: #42b983;
+}
+button {
+  background-color: rgb(68, 140, 255);
+  border: 3px solid #444;
+  margin:auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding:10px 0px;
+  border-radius: 10px;
+  width: 60%;
+  font-size: xx-large;
 }
 </style>
