@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>ShouldIQuarantine.com</h1>
+    <h1 :class="{big:(currentquestion == 'zip')}">ShouldIQuarantine.com</h1>
     <div v-if="selectedpage== 'questions'">
       <template v-for="(question, qid, index) in questions">
         <question v-if="qid == currentquestion" :question="question" :key="index" />
@@ -267,5 +267,8 @@ button {
   border-radius: 10px;
   width: 60%;
   font-size: xx-large;
+}
+.big {
+  font-size:6em
 }
 </style>
