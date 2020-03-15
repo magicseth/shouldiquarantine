@@ -50,7 +50,7 @@ export default {
         },
         "doctor": {
           question: "Have you received personal recommendations from a doctor regarding COVID-19?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -61,7 +61,7 @@ export default {
         },
         "symptoms": {
           question: "Are you expressing any symptoms?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -94,7 +94,7 @@ export default {
         },
         "travel": {
           question: "Have you traveled internationally within the last 2 weeks?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -118,7 +118,7 @@ export default {
         },
         "contact": {
           question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -129,7 +129,7 @@ export default {
         },
         "age": {
           question: "Are you more than 40 years old?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -141,7 +141,7 @@ export default {
         },
         "age-detail": {
           question: "What is your age range?",
-          type: "one",
+          type: "radio",
           answers: ["40-49", "50-59", "60-69", "70-79", "80+"],
           selected: [],
           logic: {
@@ -156,7 +156,7 @@ export default {
         },
         "existing": {
           question: "Do you have any existing conditions?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -188,7 +188,7 @@ export default {
         },
         "smoke": {
           question: "Do you smoke?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
@@ -200,7 +200,7 @@ export default {
         },
         "germophobe": {
           question: "Has someone been coughing or sneezing near you?",
-          type: "one",
+          type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {

@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     toggle(index) {
-      if (this.question.type=="one") {
+      if (this.question.type=="radio") {
         if (this.question.selected.length  && this.question.selected == index){
           this.question.selected = []
         } else {
@@ -37,7 +37,6 @@ export default {
       if (position >= 0) {
         this.question.selected.splice(position,1);
       } else {
-
         this.question.selected.push(index);
       }
     }
