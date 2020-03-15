@@ -5,11 +5,8 @@
       <question v-if="qid == currentquestion" :question="question" :key="index" />
     </template>
 
-
     <button @click="nextQuestion()">Next</button>
-    <p>
-      !!! NOT YET WORKING !!!
-    </p>
+    <p>!!! NOT YET WORKING !!!</p>
   </div>
 </template>
 
@@ -25,15 +22,16 @@ export default {
   },
   methods: {
     nextQuestion() {
-      var sels = this.questions[this.currentquestion].selected
-      var logic = this.questions[this.currentquestion].logic
-      if (sels.length == 0){ // If they didn't select anything
-        this.currentquestion = logic["-1"] // Perform some default action
+      var sels = this.questions[this.currentquestion].selected;
+      var logic = this.questions[this.currentquestion].logic;
+      if (sels.length == 0) {
+        // If they didn't select anything
+        this.currentquestion = logic["-1"]; // Perform some default action
       } else {
-        this.currentquestion = logic[sels[0]] // TODO This could be more intelligent than choosing the lowest number...
+        this.currentquestion = logic[sels[0]]; // TODO This could be more intelligent than choosing the lowest number...
       }
-      if (!this.questions[this.currentquestion]){
-        alert("You should be directed to info about "+this.currentquestion) // TODO Direct all XXX below to informational pages
+      if (!this.questions[this.currentquestion]) {
+        alert("You should be directed to info about " + this.currentquestion); // TODO Direct all XXX below to informational pages
       }
     }
   },
@@ -41,20 +39,21 @@ export default {
     return {
       currentquestion: "zip",
       questions: {
-        "zip": {
+        zip: {
           question: "Enter you zipcode to start",
           type: "text",
           placeholder: "Ex. 12345",
           selected: [],
           logic: {
-            "-1": "symptoms"}
+            "-1": "symptoms"
+          }
         },
         // "doctor": {
         //   question: "Have you received personal recommendations from a doctor regarding COVID-19?",
         //   type: "radio",
         //   answers: ["YES", "NO"],
         //   // answers: {
-        //   //   "YES":"DOCTOR", 
+        //   //   "YES":"DOCTOR",
         //   //   "NO": "symptoms"},
         //   selected: [],
         //   logic: {
@@ -63,7 +62,7 @@ export default {
         //     "1": "symptoms"
         //   }
         // },
-        "symptoms": {
+        symptoms: {
           question: "Are you expressing any symptoms?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -93,11 +92,12 @@ export default {
             "2": "EMERGENCY", // XXX EMERGENCY
             "3": "EMERGENCY", // XXX EMERGENCY
             "4": "QUARANTINE", // XXX QUARANTINE
-            "5": "QUARANTINE", // XXX QUARANTINE
+            "5": "QUARANTINE" // XXX QUARANTINE
           }
         },
-        "travel": {
-          question: "Have you traveled internationally within the last 2 weeks?",
+        travel: {
+          question:
+            "Have you traveled internationally within the last 2 weeks?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
@@ -117,21 +117,22 @@ export default {
             "0": "QUARANTINE", // XXX QUARANTINE
             "1": "QUARANTINE", // XXX QUARANTINE
             "2": "QUARANTINE", // XXX QUARANTINE
-            "3": "QUARANTINE", // XXX QUARANTINE
+            "3": "QUARANTINE" // XXX QUARANTINE
           }
         },
-        "contact": {
-          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
+        contact: {
+          question:
+            "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
             "-1": "contact",
             "0": "QUARANTINE", // XXX QUARANTINE
-            "1": "age",
+            "1": "age"
           }
         },
-        "age": {
+        age: {
           question: "Are you more than 40 years old?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -139,7 +140,7 @@ export default {
           logic: {
             "-1": "existing",
             "0": "age-detail",
-            "1": "existing",
+            "1": "existing"
           }
           // XXX Bayes
         },
@@ -154,11 +155,11 @@ export default {
             "1": "existing",
             "2": "existing",
             "3": "existing",
-            "4": "existing",
+            "4": "existing"
           }
           // XXX Bayes
         },
-        "existing": {
+        existing: {
           question: "Do you have any existing conditions?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -166,7 +167,7 @@ export default {
           logic: {
             "-1": "smoke",
             "0": "existing-detail",
-            "1": "smoke",
+            "1": "smoke"
           }
         },
         "existing-detail": {
@@ -186,11 +187,11 @@ export default {
             "1": "smoke",
             "2": "smoke",
             "3": "smoke",
-            "4": "smoke",
+            "4": "smoke"
           }
           // XXX Bayes
         },
-        "smoke": {
+        smoke: {
           question: "Do you smoke?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -198,11 +199,11 @@ export default {
           logic: {
             "-1": "germophobe",
             "0": "germophobe",
-            "1": "germophobe",
+            "1": "germophobe"
           }
           // XXX Bayes
         },
-        "germophobe": {
+        germophobe: {
           question: "Has someone been coughing or sneezing near you?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -210,9 +211,9 @@ export default {
           logic: {
             "-1": "CALCULATE", // XXX CALCULATE
             "0": "CALCULATE", // XXX CALCULATE
-            "1": "CALCULATE", // XXX CALCULATE
+            "1": "CALCULATE" // XXX CALCULATE
           }
-        },
+        }
       }
     };
   }
@@ -243,10 +244,10 @@ a {
 button {
   background-color: rgb(68, 140, 255);
   border: 3px solid #444;
-  margin:auto;
+  margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding:10px 0px;
+  padding: 10px 0px;
   border-radius: 10px;
   width: 60%;
   font-size: xx-large;
