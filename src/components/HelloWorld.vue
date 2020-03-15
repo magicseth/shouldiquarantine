@@ -1,8 +1,8 @@
 <template>
   <div class="hello">
-    <h1>Should you self-quarantine?</h1>
-    <template v-for="(question,index) in questions">
-      <question v-if="index == currentquestion" :question="question" :key="index" />
+    <h1>Should You Self-Quarantine?</h1>
+    <template v-for="(question, qid, index) in questions">
+      <question v-if="qid == currentquestion" :question="question" :key="index" />
     </template>
 
 
@@ -23,99 +23,149 @@ export default {
   },
   methods: {
     nextQuestion() {
-      this.currentquestion = this.currentquestion + 1
+      var sels = this.questions[this.currentquestion].selected
+      var logic = this.questions[this.currentquestion].logic
+      
+      if (sels.length == 0){ // If they didn't select anything
+        this.currentquestion = logic["-1"] // Perform some default action
+      } else {
+        if (this.questions[logic[sels[0]]]){ // If the option they chose directs to an existing page
+          this.currentquestion = logic[sels[0]] // TODO This could be more intelligent than choosing the lowest number...
+        } else {
+          alert("You should be directed to info about "+logic[sels[0]]) // TODO Direct all XXX below to informational pages
+        }
+      } 
     }
   },
   data() {
     return {
-      currentquestion: 0,
-      questions: [
-        {
-          question: "what is your zipcode",
-          type: "text"
+      currentquestion: "zip",
+      questions: {
+        "zip": {
+          question: "Enter you zipcode to start",
+          type: "text",
+          selected: [],
+          logic: {
+            "-1": "doctor"}
         },
-        {
-          id:"symptoms",
-          question: "Are you expressing any symptoms?",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-          // Yes > symptoms-detail
-        },
-        {
-          id:"symptoms-detail",
-          question: "Did you newly develop any of these symptoms?",
-          type: "multiple",
-          answers: [
-            "Fever",
-            "Persistent Coughing",
-            "Difficulty Breathing (when not active)",
-            "Persistent Chest Pain",
-            "Blueish Lips or Face",
-            "Confusion or Inability to Awaken"
-          ],
-          selected: []
-          // Breathing | Pain | Blue | Confusion > Emergency
-          // Fever | Cough > Quarantine
-        },
-        {
-          id:"travel",
-          question: "Have you traveled internationally within the last 2 weeks?",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-          // Yes > travel-detail
-        },
-        {
-          id:"travel-detail",
-          question: "To which countries?",
-          type: "multiple",
-          answers: ["China", "Europe", "Iran", "South Korea"],
-          selected: []
-          // Any > Quarantine
-        },
-        {
-          id:"contact",
-          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
-          type: "one",
-          answers: ["YES", "NO"],
-          selected: []
-          // Yes > Quarantine
-        },
-        {
-          id:"doctor",
+        "doctor": {
           question: "Have you received personal recommendations from a doctor regarding COVID-19?",
           type: "one",
           answers: ["YES", "NO"],
-          selected: []
-          // Yes > Doctor's Orders
+          selected: [],
+          logic: {
+            "-1": "doctor",
+            "0": "DOCTOR", // XXX Doctor's Orders
+            "1": "symptoms"
+          }
         },
-        {
-          id:"age",
+        "symptoms": {
+          question: "Are you expressing any symptoms?",
+          type: "one",
+          answers: ["YES", "NO"],
+          selected: [],
+          logic: {
+            "-1": "symptoms",
+            "0": "symptoms-detail",
+            "1": "travel"
+          }
+        },
+        "symptoms-detail": {
+          question: "Did you newly develop any of these symptoms?",
+          type: "multiple",
+          answers: [
+            "Difficulty Breathing (when not active)",
+            "Persistent Chest Pain",
+            "Blueish Lips or Face",
+            "Confusion or Inability to Awaken",
+            "Fever",
+            "Persistent Coughing"
+          ],
+          selected: [],
+          logic: {
+            "-1": "travel",
+            "0": "EMERGENCY", // XXX EMERGENCY
+            "1": "EMERGENCY", // XXX EMERGENCY
+            "2": "EMERGENCY", // XXX EMERGENCY
+            "3": "EMERGENCY", // XXX EMERGENCY
+            "4": "QUARANTINE", // XXX QUARANTINE
+            "5": "QUARANTINE", // XXX QUARANTINE
+          }
+        },
+        "travel": {
+          question: "Have you traveled internationally within the last 2 weeks?",
+          type: "one",
+          answers: ["YES", "NO"],
+          selected: [],
+          logic: {
+            "-1": "travel",
+            "0": "travel-detail",
+            "1": "contact"
+          }
+        },
+        "travel-detail": {
+          question: "To which countries?",
+          type: "multiple",
+          answers: ["China", "Europe", "Iran", "South Korea"],
+          selected: [],
+          logic: {
+            "-1": "contact",
+            "0": "QUARANTINE", // XXX QUARANTINE
+            "1": "QUARANTINE", // XXX QUARANTINE
+            "2": "QUARANTINE", // XXX QUARANTINE
+            "3": "QUARANTINE", // XXX QUARANTINE
+          }
+        },
+        "contact": {
+          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
+          type: "one",
+          answers: ["YES", "NO"],
+          selected: [],
+          logic: {
+            "-1": "contact",
+            "0": "QUARANTINE", // XXX QUARANTINE
+            "1": "age",
+          }
+        },
+        "age": {
           question: "Are you more than 40 years old?",
           type: "one",
           answers: ["YES", "NO"],
-          selected: []
-          // Yes > age-detail
+          selected: [],
+          logic: {
+            "-1": "existing",
+            "0": "age-detail",
+            "1": "existing",
+          }
+          // XXX Bayes
         },
-        {
-          id:"age-detail",
+        "age-detail": {
           question: "What is your age range?",
           type: "one",
           answers: ["40-49", "50-59", "60-69", "70-79", "80+"],
-          selected: []
-          // Bayes
+          selected: [],
+          logic: {
+            "-1": "age",
+            "0": "existing",
+            "1": "existing",
+            "2": "existing",
+            "3": "existing",
+            "4": "existing",
+          }
+          // XXX Bayes
         },
-        {
-          id:"existing",
+        "existing": {
           question: "Do you have any existing conditions?",
           type: "one",
           answers: ["YES", "NO"],
-          selected: []
-          // Yes > existing-detail
+          selected: [],
+          logic: {
+            "-1": "smoke",
+            "0": "existing-detail",
+            "1": "smoke",
+          }
         },
-        {
-          id:"existing-detail",
+        "existing-detail": {
           question: "Which of these conditions do you have?",
           type: "multiple",
           answers: [
@@ -125,26 +175,41 @@ export default {
             "Diabetes",
             "Cardiovacular disease"
           ],
-          selected: []
-          // Bayes
+          selected: [],
+          logic: {
+            "-1": "smoke",
+            "0": "smoke",
+            "1": "smoke",
+            "2": "smoke",
+            "3": "smoke",
+            "4": "smoke",
+          }
+          // XXX Bayes
         },
-        {
-          id:"smoke",
+        "smoke": {
           question: "Do you smoke?",
           type: "one",
           answers: ["YES", "NO"],
-          selected: []
-          // Bayes
+          selected: [],
+          logic: {
+            "-1": "germophobe",
+            "0": "germophobe",
+            "1": "germophobe",
+          }
+          // XXX Bayes
         },
-        {
-          id:"germophobe",
+        "germophobe": {
           question: "Has someone been coughing or sneezing near you?",
           type: "one",
           answers: ["YES", "NO"],
-          selected: []
-          // Any > no change
+          selected: [],
+          logic: {
+            "-1": "CALCULATE", // XXX CALCULATE
+            "0": "CALCULATE", // XXX CALCULATE
+            "1": "CALCULATE", // XXX CALCULATE
+          }
         },
-      ]
+      }
     };
   }
 };
