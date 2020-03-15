@@ -9,7 +9,7 @@
       <div
         v-for="(answer, index) in question.answers"
         :key="index"
-        :class="{selected:selected.includes(index)}"
+        :class="{selected:question.selected.includes(index)}"
         @click="toggle(index)"
       >{{answer}}</div>
     </template>
@@ -26,15 +26,15 @@ export default {
   methods: {
     toggle(index) {
       if (this.question.type=="one") {
-        this.selected = [index]
+        this.question.elected = [index]
         return
       }
-      var position = this.selected.indexOf(index);
+      var position = this.question.selected.indexOf(index);
       if (position >= 0) {
-        this.selected.splice(position);
+        this.question.selected.splice(position,1);
       } else {
 
-        this.selected.push(index);
+        this.question.selected.push(index);
       }
     }
   },

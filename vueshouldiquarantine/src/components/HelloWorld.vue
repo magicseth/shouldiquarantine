@@ -5,6 +5,8 @@
       <question v-if="index == currentquestion" :question="question" :key="index" />
     </template>
 
+    {{questions[1].selected}}
+
     <button @click="currentquestion++">Next</button>
   </div>
 </template>
@@ -40,45 +42,53 @@ export default {
             "Coughing",
             "Blueish Lips or Face",
             "Confusion, Low Arousal"
-          ]
+          ],
+          selected: []
         },
         {
           question: "Have you traveled internationally recently",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
         {
           question: "To which Countries",
           type: "multiple",
-          answers: ["China", "Europe", "Iran", "South Korea"]
+          answers: ["China", "Europe", "Iran", "South Korea"],
+          selected: []
         },
         {
           question: "Have you been tested for COVID-19",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
         {
           question: "What were the results?",
           type: "one",
-          answers: ["Positive", "Negative"]
+          answers: ["Positive", "Negative"],
+          selected: []
         },
         {
           question:
             "Have you been in contact with someone positively diagnosed with COVID-19",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
 
         {
           question: "What age",
           type: "one",
-          answers: ["40-49", "50-59", "60-69", "70-79", "80-89", "90+"]
+          answers: ["40-49", "50-59", "60-69", "70-79", "80-89", "90+"],
+          selected: []
         },
 
         {
           question: "Has a doctor recommended that you self-quarantine?",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
         {
           question: "Do you have any of these conditions",
@@ -90,35 +100,41 @@ export default {
             "Chrnoic Respiratory Disease",
             "Diabetes",
             "Cardiovacular Disease"
-          ]
+          ],
+          selected: []
         },
 
         {
           question: "Were you assigned male at birth?",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
         {
           question: "Are you confident in your health insurance",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
 
         {
           question: "Have you traveled through a major airport hub recently?",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
         {
           question: "Has someone been coughing or sneezing near you?",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         },
 
         {
           question: "Are you confident in your health insurance",
           type: "one",
-          answers: ["YES", "NO"]
+          answers: ["YES", "NO"],
+          selected: []
         }
       ]
     };
