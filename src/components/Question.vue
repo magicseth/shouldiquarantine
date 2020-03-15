@@ -26,7 +26,7 @@ export default {
   methods: {
     toggle(index) {
       if (this.question.type=="one") {
-        this.question.elected = [index]
+        this.question.selected = [index]
         return
       }
       var position = this.question.selected.indexOf(index);
