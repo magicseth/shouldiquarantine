@@ -7,17 +7,133 @@
       </template>
 
       <button @click="nextQuestion()">{{nextlabel}}</button>
-      <p>!!! NOT YET WORKING !!!</p>
+      <div class="footer">
+        <p><span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span> - Made by Jona and Seth Raphael - <span @click="selectedpage='results'">March 15, 2020</span></p> 
+      </div>
     </div>
-    <div v-if="selectedpage== 'about'">
-      Made with love.
+    <div v-if="selectedpage== 'disclaimer'">
+      <h3>Disclaimer</h3><br>
+      Any personal recommendation from a doctor regarding COVID-19 supersedes this site.
+      <br><br>This service was not made by a medical professional.
+      It constitutes substantial research and interviews with doctors, 
+      but in its attempt to simplify will miss important distinctions.
+      <br><br>Any advice provided here that you choose to follow is solely 
+      at your own risk.
+      If you have ideas and credentials to improve this web service, 
+      please reach out to shouldiquarantine@gmail.com
+      <hr>
+      <button @click="selectedpage='questions'">BACK</button>
+    </div>
+    <div v-if="selectedpage== 'emergency'">
+      <h1>You should proceed to an emergency room immediately.</h1>
+      <h2 class="left">The symptoms you described constitute a medical emergency.
+      <br><br>Have someone call the hospital, and describe your symptoms over the phone. </h2>
       <br>
-      Personal recommendations from a doctor regarding COVID-19, supersede any from this site.
+      <button @click="reload()">BACK</button>
     </div>
-
-    <div>
-      <span @click="selectedpage='about'">about</span>
-      <span @click="selectedpage='questions'">questions</span>
+    <div v-if="selectedpage== 'results'">
+      <h2>Based on your responses, <br>you should practice:</h2>
+      <br><br><div class="result" @click="selectedpage='quarantine'">Self-Quarantine</div>
+      <br><div class="result" @click="selectedpage='isolate'">Self-Protective Isolation</div>
+      <br><div class="result" @click="selectedpage='distance'">Social Distancing</div>
+      <br>Click a box for more details.
+      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+    </div>
+    <div v-if="selectedpage== 'quarantine'">
+      <h2>What is Self-Quarantine?</h2>
+      <ul class="left">
+        <li>Self-Quarantine is the physical separation of anyone reasonably believed 
+          to have been exposed to a communicable disease, to prevent its spread.</li>
+      </ul>
+      <h2>What should I do?</h2>
+      <ul class="left">
+        <li>- Contact your doctor by phone</li>
+        <li>- Stay home except to get medical care</li>
+        <li>- Ask others to bring you food and supplies</li>
+        <li>- Reduce contact with other people and pets in your home</li>
+        <li>- Cover your coughs and sneezes</li>
+        <li>- Monitor your symptoms for worsening (e.g. difficulty breathing)</li>
+        <li>- Prepare to be in quarantine for 2 to 4 weeks</li>
+        <li>- Find someone who will help support you during your recovery</li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Center for Disease Control</a></li>
+      </ul>
+      <h2>Why is this important?</h2>
+      <ul class="left">
+        <li>Self-Quarantine helps you prevent the spread of disease, 
+          to people who are at greater risk of serious illness than yourself.</li>
+        <li>You start spreading COVID-19 a week before you show symptoms, 
+          so it is important to self-quarantine even if you don't appear ill.</li>
+      </ul>
+      <br>
+      <br><br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br>
+      <button @click="selectedpage='results'">BACK</button>
+    </div>
+    <div v-if="selectedpage== 'isolate'">
+      <h2>What is Self-Protective Isolation?</h2>
+      <ul class="left">
+        <li>Self-Protective Isolation is physical separation of any person 
+          at high risk of severe illness or death if exposed to COVID-19.</li>
+      </ul>
+      <h2>What should I do?</h2>
+      <ul class="left">
+        <li>- Stay home as much as possible</li>
+        <li>- Avoid crowds if you need to go out</li>
+        <li>- Stock up on food, supplies, and medication</li>
+        <li>- Reduce contact with other people and pets in your home</li>
+        <li>- Frequently clean and disinfect your hands and living area</li>
+        <li>- Monitor yourself for any symptoms (e.g. difficulty breathing)</li>
+        <li>- Prepare to be in isolation for 2 to 4 weeks</li>
+        <li>- Find someone who will help you when you get sick</li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Center for Disease Control</a></li>
+      </ul>
+      <h2>Why is this important?</h2>
+      <ul class="left">
+        <li>Self-Protective Isolation helps you avoid contracting COVID-19 from others, 
+          because you have higher-than-average risk factors.</li>
+        <li>People start spreading COVID-19 a week before they show symptoms, 
+          so it is important to self-isolate even if your community doesn't appear ill.</li>
+      </ul>
+      <br>
+      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br>
+      <button @click="selectedpage='results'">BACK</button>
+    </div>
+    <div v-if="selectedpage== 'distance'">
+      <h2>What is Social Distancing?</h2>
+      <ul class="left">
+        <li>Social Distancing means avoiding crowded places where close contact 
+          with others can occur.</li>
+      </ul>
+      <h2>What should I do?</h2>
+      <ul class="left">
+        <li>- Avoid malls, theaters, stadiums, bars, parties, etc.</li>
+        <li>- Maintain 6 feet away from others when possible</li>
+        <li>- Avoid traveling</li>
+        <li>- Reduce the number of people you see at any one time</li>
+        <li>- Reduce the total number of people you see</li>
+        <li>- Avoid touching your face</li>
+        <li>- Cancel any gatherings of people you are in charge of</li>
+        <li>- Prepare to social distance for 2 to 4 weeks</li>
+        <li>- Details: <a href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">Center for Public Health Initiatives</a></li>
+      </ul>
+      <h2>Why is this important?</h2>
+      <ul class="left">
+        <li>Social Distancing helps slow down the spread of COVID-19, which is 
+          critical because of the rate at which it is overwhelming our healthcare system.</li>
+        <li>People start spreading COVID-19 a week before they show symptoms, so it 
+          is important to practice social distancing even if your community doesn't appear ill.</li>
+      </ul>
+      <br>
+      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br>
+      <button @click="selectedpage='results'">BACK</button>
+    </div>
+    <div v-if="selectedpage== 'more'">
+      Resources used:
+      - explain difference in usage of Quarantine and Isolation from CDC
+      <br>
+      <button @click="selectedpage='results'">BACK</button>
     </div>
   </div>
 </template>
@@ -231,16 +347,13 @@ h3 {
 }
 h1 {
   font-size: xx-large;
-  color: rgb(68, 140, 255);
   margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
   padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+  display: block;
 }
 a {
   color: #42b983;
@@ -265,5 +378,30 @@ button {
 #title.big {
   font-size: xx-large;
   margin: 40px 0 0;
+}
+.footer {
+  display: block;
+  position:static;
+  bottom:0;
+  width: 100%;
+}
+.underline {
+  text-decoration: underline;
+}
+.result {
+  background-color: #333;
+  border: 3px solid #444;
+  margin: auto;
+  padding: 30px 0px;
+  border-radius: 10px;
+  width: 60%;
+  color: #000;
+  font-size: x-large;
+  font-weight: bold;
+}
+.left {
+  text-align: left;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 </style>
