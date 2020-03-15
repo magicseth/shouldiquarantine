@@ -18,16 +18,9 @@ Now you are running live locally
 The fun files to edit are HelloVue.vue and Question.vue
 
 ### Deploy
-I believe in committing production files to the repo.
-
-They get deployed when you push a new commit to master with the dist/ files udpated.
-
-To deploy:
 
 ```
-npm run build
-```
-
-then git push
+ git push
+ ```
 
 information: jonaraphael@gmail.com

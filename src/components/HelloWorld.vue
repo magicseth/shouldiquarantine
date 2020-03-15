@@ -9,11 +9,12 @@
       <button @click="nextQuestion()">Next</button>
       <p>!!! NOT YET WORKING !!!</p>
     </div>
-    <div v-if="selectedpage== 'about'">
-      Made with love
-    </div>
+    <div v-if="selectedpage== 'about'">Made with love</div>
 
-    <div><span @click="selectedpage='about'">about</span> <span @click="selectedpage='questions'">questions</span></div>
+    <div>
+      <span @click="selectedpage='about'">about</span>
+      <span @click="selectedpage='questions'">questions</span>
+    </div>
   </div>
 </template>
 
@@ -28,6 +29,16 @@ export default {
     nextQuestion() {
       var sels = this.questions[this.currentquestion].selected;
       var logic = this.questions[this.currentquestion].logic;
+      if (window.firebase.auth().currentUser) {
+        window.firebase
+          .firestore()
+          .collection("userdata")
+          .doc(window.firebase.auth().currentUser.uid)
+          .collection("answers")
+          .doc(this.currentquestion)
+          .set({answers:sels});
+      }
+
       if (sels.length == 0) {
         // If they didn't select anything
         this.currentquestion = logic["-1"]; // Perform some default action
