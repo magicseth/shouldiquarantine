@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       textanswer: "",
+      place: "12345",
       selected: []
     };
   }
@@ -87,9 +88,6 @@ input {
   padding: 10px 0px;
   font-size: xx-large;
   text-align: center;
-}
-.answer:hover {
-  background-color: rgb(255, 190, 190);
 }
 .answer.selected{background-color:rgb(196, 0, 0)}
 .answer{

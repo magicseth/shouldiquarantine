@@ -1,18 +1,24 @@
 <template>
-  <div class="hello">
-    <h1>ShouldIQuarantine.com</h1>
-    <template v-for="(question, qid, index) in questions">
-      <question v-if="qid == currentquestion" :question="question" :key="index" />
-    </template>
+  <div>
+    <div id="title" @click="reload()" :class="{big:(currentquestion == 'zip')}">ShouldIQuarantine.com</div>
+    <div v-if="selectedpage== 'questions'">
+      <template v-for="(question, qid, index) in questions">
+        <question v-if="qid == currentquestion" :question="question" :key="index" />
+      </template>
 
-
-    <button @click="nextQuestion()">Next</button>
-    <p>
-      !!! NOT YET WORKING !!!
-    </p>
-    <p class="footer">
+      <button @click="nextQuestion()">Next</button>
+      <p>!!! NOT YET WORKING !!!</p>
+    </div>
+    <div v-if="selectedpage== 'about'">
+      Made with love.
+      <br>
       Personal recommendations from a doctor regarding COVID-19, supersede any from this site.
-    </p>
+    </div>
+
+    <div>
+      <span @click="selectedpage='about'">about</span>
+      <span @click="selectedpage='questions'">questions</span>
+    </div>
   </div>
 </template>
 
@@ -23,36 +29,49 @@ export default {
   components: {
     Question
   },
-  props: {
-    msg: String
-  },
   methods: {
+    reload() {
+      location.reload()
+    },
     nextQuestion() {
-      var sels = this.questions[this.currentquestion].selected
-      var logic = this.questions[this.currentquestion].logic
-      if (sels.length == 0){ // If they didn't select anything
-        this.currentquestion = logic["-1"] // Perform some default action
-      } else {
-        this.currentquestion = logic[sels[0]] // TODO This could be more intelligent than choosing the lowest number...
+      var sels = this.questions[this.currentquestion].selected;
+      var logic = this.questions[this.currentquestion].logic;
+      if (window.firebase.auth().currentUser) {
+        window.firebase
+          .firestore()
+          .collection("userdata")
+          .doc(window.firebase.auth().currentUser.uid)
+          .collection("answers")
+          .doc(this.currentquestion)
+          .set({answers:sels});
       }
-      if (!this.questions[this.currentquestion]){
-        alert("You should be directed to info about "+this.currentquestion) // TODO Direct all XXX below to informational pages
+
+      if (sels.length == 0) {
+        // If they didn't select anything
+        this.currentquestion = logic["-1"]; // Perform some default action
+      } else {
+        this.currentquestion = logic[sels[0]]; // TODO This could be more intelligent than choosing the lowest number...
+      }
+      if (!this.questions[this.currentquestion]) {
+        alert("You should be directed to info about " + this.currentquestion); // TODO Direct all XXX below to informational pages
       }
     }
   },
   data() {
     return {
+      selectedpage: "questions",
       currentquestion: "zip",
       questions: {
-        "zip": {
+        zip: {
           question: "Enter you zipcode to start",
           type: "text",
           placeholder: "Ex. 12345",
           selected: [],
           logic: {
-            "-1": "symptoms"}
+            "-1": "symptoms"
+          }
         },
-        "symptoms": {
+        symptoms: {
           question: "Are you expressing any symptoms?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -89,8 +108,9 @@ export default {
             "7": "travel",
           }
         },
-        "travel": {
-          question: "Have you traveled internationally within the last 2 weeks?",
+        travel: {
+          question:
+            "Have you traveled internationally within the last 2 weeks?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
@@ -114,18 +134,19 @@ export default {
             "4": "contact",
           }
         },
-        "contact": {
-          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
+        contact: {
+          question:
+            "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
           logic: {
             "-1": "contact",
             "0": "QUARANTINE", // XXX QUARANTINE
-            "1": "age",
+            "1": "age"
           }
         },
-        "age": {
+        age: {
           question: "Are you more than 40 years old?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -133,7 +154,7 @@ export default {
           logic: {
             "-1": "existing",
             "0": "age-detail",
-            "1": "existing",
+            "1": "existing"
           }
           // XXX Bayes
         },
@@ -148,11 +169,11 @@ export default {
             "1": "existing",
             "2": "existing",
             "3": "existing",
-            "4": "existing",
+            "4": "existing"
           }
           // XXX Bayes
         },
-        "existing": {
+        existing: {
           question: "Do you have any existing medical conditions?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -185,7 +206,7 @@ export default {
           }
           // XXX Bayes
         },
-        "germophobe": {
+        germophobe: {
           question: "Has someone been coughing or sneezing near you?",
           type: "radio",
           answers: ["YES", "NO"],
@@ -195,7 +216,7 @@ export default {
             "0": "SOCIAL DISTANCING", // XXX CALCULATE
             "1": "SELF ISOLATION", // XXX CALCULATE
           }
-        },
+        }
       }
     };
   }
@@ -226,12 +247,22 @@ a {
 button {
   background-color: rgb(68, 140, 255);
   border: 3px solid #444;
-  margin:auto;
+  margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  padding:10px 0px;
+  padding: 10px 0px;
   border-radius: 10px;
   width: 60%;
   font-size: xx-large;
+}
+#title{
+  font-size: medium;
+  font-weight: bold;
+  color: rgb(68, 140, 255);
+  margin: -40px 0 0;
+}
+#title.big {
+  font-size: xx-large;
+  margin: 40px 0 0;
 }
 </style>
