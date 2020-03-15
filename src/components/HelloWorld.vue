@@ -33,9 +33,9 @@
     </div>
     <div v-if="selectedpage== 'results'">
       <h2>Based on your responses, <br>you should practice:</h2>
-      <br><br><div class="result" @click="selectedpage='quarantine'">Self-Quarantine</div>
-      <br><div class="result" @click="selectedpage='isolate'">Self-Protective Isolation</div>
-      <br><div class="result" @click="selectedpage='distance'">Social Distancing</div>
+      <br><br><div class="result" :class="{selected:(recommendation == 'rec_quarantine')}" @click="selectedpage='quarantine'">Self-Quarantine</div>
+      <br><div class="result" :class="{selected:(recommendation == 'rec_isolate')}" @click="selectedpage='isolate'">Self-Protective Isolation</div>
+      <br><div class="result" :class="{selected:(recommendation == 'rec_distance')}" @click="selectedpage='distance'">Social Distancing</div>
       <br>Click a box for more details.
       <br><span class="underline" @click="selectedpage='more'">Learn More</span>
     </div>
@@ -190,6 +190,7 @@ export default {
     nextQuestion() {
       var sels = this.questions[this.currentquestion].selected;
       var logic = this.questions[this.currentquestion].logic;
+      
       if (window.firebase.auth().currentUser) {
         window.firebase
           .firestore()
@@ -199,15 +200,24 @@ export default {
           .doc(this.currentquestion)
           .set({answers:sels});
       }
-
-      if (sels.length == 0) {
+      if (sels.length == 0) { 
         // If they didn't select anything
         this.currentquestion = logic["-1"]; // Perform some default action
       } else {
-        this.currentquestion = logic[sels[0]]; // TODO This could be more intelligent than choosing the lowest number...
+        this.currentquestion = logic[sels.sort()[0]]; // TODO This could be more intelligent than choosing the lowest number...
       }
-      if (!this.questions[this.currentquestion]) {
-        alert("You should be directed to info about " + this.currentquestion); // TODO Direct all XXX below to informational pages
+
+      if (!this.questions[this.currentquestion]) { // The next step is a RESULT instead of a question
+        this.recommendation = this.currentquestion;
+        alert(this.recommendation)
+        if (this.recommendation == "rec_emergency"){
+          this.selectedpage = "emergency"
+        } else if (this.recommendation == "rec_calculate"){
+          // Calculate the Bayesian stats
+          this.recommendation = "rec_isolate"
+          this.recommendation = "rec_distance"
+        } 
+        this.selectedpage = "results";
       }
     }
   },
@@ -216,6 +226,7 @@ export default {
       selectedpage: "questions",
       nextlabel: "Next",
       currentquestion: "zip",
+      recommendation: "",
       questions: {
         zip: {
           question: "Enter your zipcode to start",
@@ -253,12 +264,12 @@ export default {
           selected: [],
           logic: {
             "-1": "travel",
-            "0": "EMERGENCY", // XXX EMERGENCY
-            "1": "EMERGENCY", // XXX EMERGENCY
-            "2": "EMERGENCY", // XXX EMERGENCY
-            "3": "EMERGENCY", // XXX EMERGENCY
-            "4": "QUARANTINE", // XXX QUARANTINE
-            "5": "QUARANTINE", // XXX QUARANTINE
+            "0": "rec_emergency",
+            "1": "rec_emergency",
+            "2": "rec_emergency",
+            "3": "rec_emergency",
+            "4": "rec_quarantine",
+            "5": "rec_quarantine",
             "6": "travel",
             "7": "travel",
           }
@@ -287,10 +298,10 @@ export default {
           selected: [],
           logic: {
             "-1": "contact",
-            "0": "QUARANTINE", // XXX QUARANTINE
-            "1": "QUARANTINE", // XXX QUARANTINE
-            "2": "QUARANTINE", // XXX QUARANTINE
-            "3": "QUARANTINE", // XXX QUARANTINE
+            "0": "rec_quarantine",
+            "1": "rec_quarantine",
+            "2": "rec_quarantine",
+            "3": "rec_quarantine",
             "4": "contact",
           }
         },
@@ -302,7 +313,7 @@ export default {
           selected: [],
           logic: {
             "-1": "contact",
-            "0": "QUARANTINE", // XXX QUARANTINE
+            "0": "rec_quarantine",
             "1": "age"
           }
         },
@@ -344,9 +355,9 @@ export default {
           answers: ["YES", "NO"],
           selected: [],
           logic: {
-            "-1": "germophobe",
+            "-1": "rec_calculate",
             "0": "existing-detail",
-            "1": "germophobe",
+            "1": "rec_calculate",
           }
         },
         "existing-detail": {
@@ -362,13 +373,13 @@ export default {
           ],
           selected: [],
           logic: {
-            "-1": "CALCULATE",
-            "0": "CALCULATE",
-            "1": "CALCULATE",
-            "2": "CALCULATE",
-            "3": "CALCULATE",
-            "4": "CALCULATE",
-            "5": "CALCULATE",
+            "-1": "rec_calculate",
+            "0": "rec_calculate",
+            "1": "rec_calculate",
+            "2": "rec_calculate",
+            "3": "rec_calculate",
+            "4": "rec_calculate",
+            "5": "rec_calculate",
           }
           // XXX Bayes
         }
@@ -425,6 +436,9 @@ button {
 }
 .underline {
   text-decoration: underline;
+}
+.result.selected {
+  background-color:rgb(30, 173, 95)
 }
 .result {
   background-color: #333;
