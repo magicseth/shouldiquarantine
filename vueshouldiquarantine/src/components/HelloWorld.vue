@@ -5,7 +5,6 @@
       <question v-if="index == currentquestion" :question="question" :key="index" />
     </template>
 
-    {{questions[1].selected}}
 
     <button @click="currentquestion++">Next</button>
   </div>
