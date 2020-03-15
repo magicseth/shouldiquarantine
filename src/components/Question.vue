@@ -26,7 +26,11 @@ export default {
   methods: {
     toggle(index) {
       if (this.question.type=="one") {
-        this.question.selected = [index]
+        if (this.question.selected.length  && this.question.selected == index){
+          this.question.selected = []
+        } else {
+          this.question.selected = [index]
+        }
         return
       }
       var position = this.question.selected.indexOf(index);
