@@ -1,12 +1,19 @@
 <template>
   <div class="hello">
     <h1>ShouldIQuarantine.com</h1>
-    <template v-for="(question, qid, index) in questions">
-      <question v-if="qid == currentquestion" :question="question" :key="index" />
-    </template>
+    <div v-if="selectedpage== 'questions'">
+      <template v-for="(question, qid, index) in questions">
+        <question v-if="qid == currentquestion" :question="question" :key="index" />
+      </template>
 
-    <button @click="nextQuestion()">Next</button>
-    <p>!!! NOT YET WORKING !!!</p>
+      <button @click="nextQuestion()">Next</button>
+      <p>!!! NOT YET WORKING !!!</p>
+    </div>
+    <div v-if="selectedpage== 'about'">
+      Made with love
+    </div>
+
+    <div><span @click="selectedpage='about'">about</span> <span @click="selectedpage='questions'">questions</span></div>
   </div>
 </template>
 
@@ -16,9 +23,6 @@ export default {
   name: "HelloWorld",
   components: {
     Question
-  },
-  props: {
-    msg: String
   },
   methods: {
     nextQuestion() {
@@ -37,6 +41,7 @@ export default {
   },
   data() {
     return {
+      selectedpage: "questions",
       currentquestion: "zip",
       questions: {
         zip: {
