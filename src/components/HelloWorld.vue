@@ -54,13 +54,16 @@
         <li>- Cover your coughs and sneezes</li>
         <li>- Monitor your symptoms for worsening (e.g. difficulty breathing)</li>
         <li>- Prepare to be in quarantine for 2 to 4 weeks</li>
-        <li>- Find someone who will help support you during your recovery</li>
+        <li>- Find someone who will check in on you and help you if you get sick</li>
         <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Center for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
-        <li>Self-Quarantine helps you prevent the spread of disease, 
-          to people who are at greater risk of serious illness than yourself.</li>
+        <li>Self-Quarantine helps you prevent the spread of disease 
+          to people who are at greater risk of serious illness than yourself, 
+          as well as reducing the strain on your local healthcare system.</li>
+          Some people will be quarantined who do not have COVID-19, 
+          but this still reduces the spread of disease.
         <li>You start spreading COVID-19 a week before you show symptoms, 
           so it is important to self-quarantine even if you don't appear ill.</li>
       </ul>
@@ -73,7 +76,7 @@
       <h2>What is Self-Protective Isolation?</h2>
       <ul class="left">
         <li>Self-Protective Isolation is physical separation of any person 
-          at high risk of severe illness or death if exposed to COVID-19.</li>
+          at high risk of severe illness or death if infected by COVID-19.</li>
       </ul>
       <h2>What should I do?</h2>
       <ul class="left">
@@ -84,7 +87,7 @@
         <li>- Frequently clean and disinfect your hands and living area</li>
         <li>- Monitor yourself for any symptoms (e.g. difficulty breathing)</li>
         <li>- Prepare to be in isolation for 2 to 4 weeks</li>
-        <li>- Find someone who will help you when you get sick</li>
+        <li>- Find someone who will check in on you and help you if you get sick</li>
         <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Center for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
@@ -108,9 +111,9 @@
       <h2>What should I do?</h2>
       <ul class="left">
         <li>- Avoid malls, theaters, stadiums, bars, parties, etc.</li>
-        <li>- Maintain 6 feet away from others when possible</li>
         <li>- Avoid traveling</li>
-        <li>- Reduce the number of people you see at any one time</li>
+        <li>- Reduce the number of people you see at any one time</li> 
+        <!-- combine with the cancel gatherings comment? -->
         <li>- Reduce the total number of people you see</li>
         <li>- Avoid touching your face</li>
         <li>- Cancel any gatherings of people you are in charge of</li>
@@ -130,8 +133,35 @@
       <button @click="selectedpage='results'">BACK</button>
     </div>
     <div v-if="selectedpage== 'more'">
-      Resources used:
-      - explain difference in usage of Quarantine and Isolation from CDC
+      <h2>Terms</h2>
+      <ul class="left">
+        <li>- The CDC uses the word Quarantine only for individuals 
+          who are NOT yet symptomatic. In this application, we allow Quarantine 
+          to cover those who are expressing symptoms already.</li>
+        <li>- The CDC uses the word Isolation to refer to individuals who are 
+          infected and infectious. In this application, we use the word to refer 
+          to individuals practicing an extreme form of Social Distancing.</li>
+        <li>- The CDC defines the term Close Contact as being within approximately 
+          6 feet of a COVID-19 case for a prolonged period of time, or having direct 
+          contact with infectious secretions of a COVID-19 case (e.g. being coughed on).</li>
+      </ul>
+      <h2>Methodology</h2>
+      <ul class="left">
+        <li>- There are 4 symptoms that result in a recommendation of Emergency Room visit: difficutly breathing, chest pain, blue coloration, confusion.</li>
+        <li>- There are 2 symptoms that result in a recommendation of Self-Quarantine: fever, persistent cough.</li>
+        <li>- There are 4 zones of international travel that result in a recommendation of Self-Quarantine: China, Europe, Iran, South Korea.</li>
+        <li>- Being in close contact with someone diagnosed with COVID-19 results in a recommendation of Self-Quarantine.</li>
+        <li>- All other selections will result in either a recommendation of Self-Protective Isolation of Social Distancing.</li>
+        <li>- All other questions (age and comorbidity) use Bayesian statistics to estimate the likelihood of mortality relative to the average confirmed case.</li>
+        <li>- Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>
+        <li>- </li>
+        <li>- </li>
+        <li>- </li>
+      </ul>
+      <h2>Resources</h2>
+      <ul class="left">
+        <li>- </li>
+      </ul>
       <br>
       <button @click="selectedpage='results'">BACK</button>
     </div>
@@ -314,25 +344,15 @@ export default {
           ],
           selected: [],
           logic: {
-            "-1": "germophobe",
-            "0": "germophobe",
-            "1": "germophobe",
-            "2": "germophobe",
-            "3": "germophobe",
-            "4": "germophobe",
+            "-1": "CALCULATE",
+            "0": "CALCULATE",
+            "1": "CALCULATE",
+            "2": "CALCULATE",
+            "3": "CALCULATE",
+            "4": "CALCULATE",
+            "5": "CALCULATE",
           }
           // XXX Bayes
-        },
-        germophobe: {
-          question: "Has someone been coughing or sneezing near you?",
-          type: "radio",
-          answers: ["YES", "NO"],
-          selected: [],
-          logic: {
-            "-1": "CALCULATE", // XXX CALCULATE
-            "0": "SOCIAL DISTANCING", // XXX CALCULATE
-            "1": "SELF ISOLATION", // XXX CALCULATE
-          }
         }
       }
     };
