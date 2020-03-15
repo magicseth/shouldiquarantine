@@ -6,7 +6,7 @@
     </template>
 
 
-    <button @click="currentquestion++">Next</button>
+    <button @click="nextQuestion()">Next</button>
      --- NOT YET WORKING!!
   </div>
 </template>
@@ -20,6 +20,11 @@ export default {
   },
   props: {
     msg: String
+  },
+  methods: {
+    nextQuestion() {
+      this.currentquestion = this.currentquestion + 1
+    }
   },
   data() {
     return {
