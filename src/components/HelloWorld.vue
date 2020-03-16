@@ -210,7 +210,6 @@ export default {
       var sels = this.questions[this.currentquestion].selected;
       var logic = this.questions[this.currentquestion].logic;
       const answers = []
-      console.log(this.currentquestion)
       sels.forEach(selectedindex => {
         const answer = this.questions[this.currentquestion].answers[selectedindex]
         answers.push(answer)
