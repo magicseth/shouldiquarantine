@@ -15,7 +15,7 @@
       <button @click="nextQuestion()">{{nextlabel}}</button>
       <div class="footer">
         <p class="gray">
-          <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
+          <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
           <br />Last Update: 2020-03-16
           <br />
           <a
@@ -483,7 +483,7 @@ export default {
           question: "Have you recently developed any of these symptoms?",
           type: "multiple",
           answers: [
-            "Difficulty Breathing (when not active)",
+            "symptoms.breathing",
             "Persistent Chest Pain",
             "Blueish Lips or Face",
             "Confusion or Inability to Awaken",

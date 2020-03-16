@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Should I Quarantine?"/>
+    <HelloWorld msg="Should I Quarantine?" />
+    <language-choice />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from "./components/HelloWorld.vue";
+import LanguageChoice from "./components/LanguageChoice.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
+    LanguageChoice,
     HelloWorld
   }
-}
+};
 </script>
 
 <style>

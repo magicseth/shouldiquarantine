@@ -12,7 +12,7 @@
         :key="index"
         :class="{selected:question.selected.includes(index)}"
         @click="toggle(index)"
-      >{{answer}}</div>
+      >{{$t(answer)}}</div>
     </template>
     <template v-else></template>
   </div>
