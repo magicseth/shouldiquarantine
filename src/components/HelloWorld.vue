@@ -202,13 +202,12 @@
       <h2>What should I do?</h2>
       <ul class="left">
         <li>- Avoid malls, theaters, stadiums, bars, parties, etc.</li>
-        <li>- Avoid traveling</li>
-        <li>- Reduce the number of people you see at any one time</li>
-        <!-- combine with the cancel gatherings comment? -->
+        <li>- Avoid all traveling</li>
+        <li>- Avoid all groups of 10 or more people</li>
         <li>- Reduce the total number of people you see</li>
         <li>- Avoid touching your face</li>
-        <li>- Cancel any gatherings of people you are in charge of</li>
-        <li>- Prepare to social distance for 2 to 4 weeks</li>
+        <li>- Cancel any gatherings you have the influence to do so</li>
+        <li>- Prepare to practice social distancing for 2 to 4 weeks</li>
         <li>
           - Details:
           <a
