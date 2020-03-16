@@ -23,4 +23,4 @@ The fun files to edit are HelloVue.vue and Question.vue
  git push
  ```
 
-information: jonaraphael@gmail.com
+information: shouldiquarantine@gmail.com
