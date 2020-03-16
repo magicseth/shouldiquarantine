@@ -209,7 +209,12 @@ export default {
     nextQuestion() {
       var sels = this.questions[this.currentquestion].selected;
       var logic = this.questions[this.currentquestion].logic;
-      
+      const answers = []
+      console.log(this.currentquestion)
+      sels.forEach(selectedindex => {
+        const answer = this.questions[this.currentquestion].answers[selectedindex]
+        answers.push(answer)
+      });
       if (window.firebase.auth().currentUser) {
         window.firebase
           .firestore()
@@ -217,7 +222,7 @@ export default {
           .doc(window.firebase.auth().currentUser.uid)
           .collection("answers")
           .doc(this.currentquestion)
-          .set({answers:sels});
+          .set({ answers: answers });
       }
       if (sels.length == 0) { 
         // If they didn't select anything
@@ -244,9 +249,8 @@ export default {
       recommendation: "",
       questions: {
         // zip: {
-        //   question: "Enter your zipcode to start",
-        //   type: "text",
-        //   placeholder: "Ex. 12345",
+        //   question: "Your location impacts your risk",
+        //   placeholder: "Enter zipcode",
         //   selected: [],
         //   logic: {
         //     "-1": "symptoms"
