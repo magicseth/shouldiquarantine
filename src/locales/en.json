@@ -1,3 +1,8 @@
 {
-  "message": "hello i18n !!"
+  "disclaimer": "Disclaimer",
+  "YES": "YES",
+  "symptoms": {
+    "breathing": "Difficulty Breathing (when not active)"
+  }
+
 }
