@@ -403,9 +403,12 @@ export default {
           .firestore()
           .collection("userdata")
           .doc(window.firebase.auth().currentUser.uid)
-          .collection("answers")
-          .doc(this.currentquestion)
-          .set({ answers: answers });
+          .collection("allanswers")
+          .add({
+            answers: answers,
+            question: this.currentquestion,
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
       }
       if (sels.length == 0) {
         // If they didn't select anything
