@@ -28,11 +28,12 @@
     </div>
     <div v-if="selectedpage== 'disclaimer'">
       <h2>Disclaimer</h2>
-      <br />Follow any personal recommendations from your doctor over any given on this site.
+      <br />You should always follow recommendations from your personal doctor instead of websites.
       <br />
-      <br />This service was not made by medical professionals.
-      It is the product of substantial research and interviews with multiple doctors,
-      but in its attempt to simplify will miss important distinctions.
+      <br />This service was not made by medical professionals. However it is the product 
+      of substantial research and interviews with multiple doctors, specifically for the 
+      COVID-19 pandemic in the USA, but in its attempt to simplify it may miss 
+      important factors.
       <br />
       <br />Please do not interpret the information provided here as advice.
       Our intent is simply to pass on the recommendations of CDC, and provide a framework
@@ -41,10 +42,12 @@
         class="underline"
         @click="selectedpage='more'"
       >here</span>.
-      If you have ideas and credentials to improve this web service,
-      please reach out to shouldiquarantine@gmail.com.
-      We don't collect any personally identifiable information, though we do collect your responses.
-      That data will never be sold. We use cookies to keep track of your answers.
+      <br />If you have ideas and credentials to improve this web service,
+      please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.
+      <br />
+      <br />We don't collect any personally identifiable information, though we do 
+      collect your responses. That data will never be sold, but shared with the 
+      medical community. We use cookies to keep track of your answers.
       <br />
       <button @click="selectedpage='questions'">BACK</button>
     </div>
