@@ -417,6 +417,16 @@ export default {
       if (!this.questions[this.currentquestion]) {
         // The next step is a RESULT instead of a question
         this.recommendation = this.currentquestion;
+        if (window.firebase.auth().currentUser) {
+          window.firebase
+            .firestore()
+            .collection("userdata")
+            .doc(window.firebase.auth().currentUser.uid)
+            .collection("answers")
+            .doc("recommendation")
+            .set({ recommendation: this.recommendation });
+        }
+
         if (this.recommendation == "rec_emergency") {
           this.selectedpage = "emergency";
         } else {
