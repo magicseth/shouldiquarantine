@@ -16,7 +16,7 @@
       <div class="footer">
         <p class="gray">
           <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
-          <br />March 15, 2020
+          <br />Last Update: 2020-03-16
           <br />
           <a
             class="gray"
@@ -28,23 +28,25 @@
     </div>
     <div v-if="selectedpage== 'disclaimer'">
       <h2>Disclaimer</h2>
-      <br />Follow any personal recommendations from your doctor over any given on this site.
-      <br />
-      <br />This service was not made by medical professionals.
-      It is the product of substantial research and interviews with multiple doctors,
-      but in its attempt to simplify will miss important distinctions.
-      <br />
-      <br />Please do not interpret the information provided here as advice.
-      Our intent is simply to pass on the recommendations of CDC, and provide a framework
-      for thinking about these topics. You can find details about the resources used
-      <span
-        class="underline"
-        @click="selectedpage='more'"
-      >here</span>.
-      If you have ideas and credentials to improve this web service,
-      please reach out to shouldiquarantine@gmail.com.
-      We don't collect any personally identifiable information, though we do collect your responses.
-      That data will never be sold. We use cookies to keep track of your answers.
+      <ul class="left">
+        <li>You should always follow recommendations from your personal doctor instead of websites.</li>
+        <li><br />This service was not made by medical professionals. However it is the product 
+          of substantial research and interviews with multiple doctors, specifically for the 
+          COVID-19 pandemic in the USA, but in its attempt to simplify it may miss 
+          important factors.</li>
+        <li><br />Please do not interpret the information provided here as advice.
+          Our intent is simply to pass on the recommendations of CDC, and provide a framework
+          for thinking about these topics. You can find details about the resources used in 
+          the methodology link below.</li>
+        <li><br />If you have ideas and credentials to improve this web service,
+          please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.</li>
+        <li><br />We don't collect any personally identifiable information, though we do 
+          collect your responses. That data will never be sold, but shared with the 
+          medical community. We use cookies to keep track of your answers.</li>
+        <li><br /></li>
+        <li><br /></li>
+      </ul>
+      <br /><span class="underline" @click="selectedpage='more'">Methodology</span>
       <br />
       <button @click="selectedpage='questions'">BACK</button>
     </div>
@@ -59,6 +61,13 @@
       <button @click="reload()">BACK</button>
     </div>
     <div v-if="selectedpage== 'results'">
+      <div class="corner"><a
+          class="gray"
+          href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com"
+          target="_blank"
+        ><img alt="Share" width="50" src="../assets/blueshare.png" /></a>
+        
+        </div>
       <h2>
         Based on your responses,
         <br />you should practice:
@@ -86,6 +95,8 @@
       <h2>Click a box for more details.</h2>
       <br />
       <span class="underline" @click="selectedpage='more'">Methodology</span>
+      <br />
+      <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
     </div>
     <div v-if="selectedpage== 'quarantine'">
       <h2>What is Self-Quarantine?</h2>
@@ -367,6 +378,8 @@
           >Community Makers: Open Source COVID19 Medical Supplies</a>
         </li>
       </ul>
+      <br />
+      <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
       <br />
       <button @click="selectedpage='results'">BACK</button>
     </div>
@@ -675,5 +688,10 @@ button {
 }
 .hidden {
   display: none;
+}
+.corner {
+  position: absolute;
+  top: 7px;
+  right: 5%;
 }
 </style>
