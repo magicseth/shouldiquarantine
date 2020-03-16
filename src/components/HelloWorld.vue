@@ -43,7 +43,7 @@
       <h2>What is Self-Quarantine?</h2>
       <ul class="left">
         <li>Self-Quarantine is the physical separation of anyone reasonably believed 
-          to have been exposed to COVID-19, to prevent its spread.</li>
+          to have been exposed to COVID-19 in order to prevent its spread.</li>
       </ul>
       <h2>What should I do?</h2>
       <ul class="left">
@@ -55,7 +55,7 @@
         <li>- Monitor your symptoms for worsening (e.g. difficulty breathing)</li>
         <li>- Prepare to be in quarantine for 2 to 4 weeks</li>
         <li>- Find someone who will check in on you and help you if you get sick</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Center for Disease Control</a></li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
@@ -88,11 +88,11 @@
         <li>- Monitor yourself for any symptoms (e.g. difficulty breathing)</li>
         <li>- Prepare to be in isolation for 2 to 4 weeks</li>
         <li>- Find someone who will check in on you and help you if you get sick</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Center for Disease Control</a></li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
-        <li>Self-Protective Isolation helps you avoid contracting COVID-19 from others, 
+        <li>Self-Protective Isolation helps you avoid contracting COVID-19 from others 
           because you have higher-than-average risk factors.</li>
         <li>People start spreading COVID-19 a week before they show symptoms, 
           so it is important to self-isolate even if no one in your community appears ill.</li>
@@ -118,7 +118,7 @@
         <li>- Avoid touching your face</li>
         <li>- Cancel any gatherings of people you are in charge of</li>
         <li>- Prepare to social distance for 2 to 4 weeks</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Center for Disease Control</a></li>
+        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
@@ -152,7 +152,7 @@
         <li>- There are 4 zones of international travel that result in a recommendation of <i>Self-Quarantine</i>: China, Europe, Iran, South Korea.</li>
         <li>- Being in close contact with someone diagnosed with COVID-19 results in a recommendation of <i>Self-Quarantine</i>.</li>
         <li>- All other selections will result in either a recommendation of <i>Self-Protective Isolation</i> or <i>Social Distancing</i>.</li>
-        <li>- All other questions (age and comorbidity) use Bayesian statistics to estimate the likelihood of mortality relative to the average confirmed case.</li>
+        <li>- All other questions (age and comorbidity) use <a href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348">Bayesian statistics</a> to estimate the likelihood of mortality relative to the average confirmed case.</li>
         <li>- If a respondent's submission exceeds the average likely mortality, this application recommends <i>Self-Protective Isolation</i></li>
         <li>- All other respondents are recommended to practice <i>Social Distancing</i>.</li>
         <li>- These statistics are collected from <a href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a></li>
@@ -209,15 +209,16 @@ export default {
 
       if (!this.questions[this.currentquestion]) { // The next step is a RESULT instead of a question
         this.recommendation = this.currentquestion;
-        alert(this.recommendation)
         if (this.recommendation == "rec_emergency"){
-          this.selectedpage = "emergency"
+          this.selectedpage = "emergency";
+        } else if (this.recommendation == "rec_quarantine") {
+          this.selectedpage = "results";
         } else if (this.recommendation == "rec_calculate"){
           // Calculate the Bayesian stats
-          this.recommendation = "rec_isolate"
-          this.recommendation = "rec_distance"
+          this.recommendation = "rec_isolate";
+          this.recommendation = "rec_distance";
+          this.selectedpage = "results";
         } 
-        this.selectedpage = "results";
       }
     }
   },
