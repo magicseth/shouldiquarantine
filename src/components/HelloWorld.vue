@@ -416,9 +416,12 @@ export default {
           .firestore()
           .collection("userdata")
           .doc(window.firebase.auth().currentUser.uid)
-          .collection("answers")
-          .doc(this.currentquestion)
-          .set({ answers: answers });
+          .collection("allanswers")
+          .add({
+            answers: answers,
+            question: this.currentquestion,
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
       }
       if (sels.length == 0) {
         // If they didn't select anything
@@ -435,9 +438,12 @@ export default {
             .firestore()
             .collection("userdata")
             .doc(window.firebase.auth().currentUser.uid)
-            .collection("answers")
-            .doc("recommendation")
-            .set({ recommendation: this.recommendation });
+                      .collection("allanswers")
+          .add({
+            answers: [this.recommendation],
+            question: "recommendation",
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
         }
 
         if (this.recommendation == "rec_emergency") {
