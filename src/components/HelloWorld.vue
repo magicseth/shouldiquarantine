@@ -480,7 +480,7 @@ export default {
           }
         },
         "symptoms-detail": {
-          question: "Have you newly developed any of these symptoms?",
+          question: "Have you recently developed any of these symptoms?",
           type: "multiple",
           answers: [
             "Difficulty Breathing (when not active)",
