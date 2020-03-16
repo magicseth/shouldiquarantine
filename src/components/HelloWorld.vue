@@ -16,7 +16,7 @@
       <div class="footer">
         <p class="gray">
           <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
-          <br />March 15, 2020
+          <br />Last Update: 2020-03-16
           <br />
           <a
             class="gray"
