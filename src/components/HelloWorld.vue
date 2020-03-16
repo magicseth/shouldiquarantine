@@ -597,7 +597,7 @@ export default {
           }
         },
         caregiver: {
-          question: "Are you a primary caregiver for a vulnerable person?",
+          question: "Are you a primary caregiver for someone who would answer yes to the previous questions?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
