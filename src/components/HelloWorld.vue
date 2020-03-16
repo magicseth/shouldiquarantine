@@ -438,9 +438,12 @@ export default {
             .firestore()
             .collection("userdata")
             .doc(window.firebase.auth().currentUser.uid)
-            .collection("answers")
-            .doc("recommendation")
-            .set({ recommendation: this.recommendation });
+                      .collection("allanswers")
+          .add({
+            answers: [this.recommendation],
+            question: "recommendation",
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
         }
 
         if (this.recommendation == "rec_emergency") {
