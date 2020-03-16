@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div id="title" @click="reload()" :class="{big:(currentquestion == 'zip')}">ShouldIQuarantine.com</div>
+    <div id="title" @click="reload()" :class="{big:(selectedpage == 'questions')}">ShouldIQuarantine.com</div>
+    <div v-if="selectedpage== 'start'">
+
+      <button @click="selectedpage='questions'">FIND OUT</button>
+      <div class="footer">
+        <p class="gray"><span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span> <br> March 15, 2020 <br> Made by Jona and Seth Raphael </p> 
+      </div>
+    </div>
     <div v-if="selectedpage== 'questions'">
       <template v-for="(question, qid, index) in questions">
         <question v-if="qid == currentquestion" :question="question" :key="index" />
@@ -8,20 +15,21 @@
 
       <button @click="nextQuestion()">{{nextlabel}}</button>
       <div class="footer">
-        <p><span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span> - Made by Jona and Seth Raphael - <span @click="selectedpage='results'">March 15, 2020</span></p> 
+        <p class="gray"><span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span> <br> March 15, 2020 <br> <a class="mailto gray" href="mailto:shouldiquarantine@gmail.com" target="_blank">Made by Jona and Seth Raphael</a></p> 
       </div>
     </div>
     <div v-if="selectedpage== 'disclaimer'">
-      <h3>Disclaimer</h3><br>
-      Any personal recommendation from a doctor regarding COVID-19 supersedes this site.
-      <br><br>This service was not made by a medical professional.
-      It constitutes substantial research and interviews with doctors, 
+      <h2>Disclaimer</h2><br>
+      Follow any personal recommendations from your doctor over any given on this site.
+      <br><br>This service was not made by medical professionals.
+      It is the product of substantial research and interviews with multiple doctors, 
       but in its attempt to simplify will miss important distinctions.
-      <br><br>Any advice provided here that you choose to follow is solely 
-      at your own risk.
+      <br><br>Please do not interpret the information provided here as advice. 
+      Our intent is simply to pass on the recommendations of CDC, and provide a framework 
+      for thinking about these topics. You can find details about the resources used <span class="underline" @click="selectedpage='more'">here</span>.
       If you have ideas and credentials to improve this web service, 
-      please reach out to shouldiquarantine@gmail.com
-      <hr>
+      please reach out to shouldiquarantine@gmail.com.
+      <br>
       <button @click="selectedpage='questions'">BACK</button>
     </div>
     <div v-if="selectedpage== 'emergency'">
@@ -36,8 +44,8 @@
       <br><br><div class="result" :class="{selected:(recommendation == 'rec_quarantine')}" @click="selectedpage='quarantine'">Self-Quarantine</div>
       <br><div class="result" :class="{selected:(recommendation == 'rec_isolate')}" @click="selectedpage='isolate'">Self-Protective Isolation</div>
       <br><div class="result" :class="{selected:(recommendation == 'rec_distance')}" @click="selectedpage='distance'">Social Distancing</div>
-      <br>Click a box for more details.
-      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br><h2>Click a box for more details.</h2>
+      <br><span class="underline" @click="selectedpage='more'">Methodology</span>
     </div>
     <div v-if="selectedpage== 'quarantine'">
       <h2>What is Self-Quarantine?</h2>
@@ -55,7 +63,7 @@
         <li>- Monitor your symptoms for worsening (e.g. difficulty breathing)</li>
         <li>- Prepare to be in quarantine for 2 to 4 weeks</li>
         <li>- Find someone who will check in on you and help you if you get sick</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Centers for Disease Control</a></li>
+        <li>- Details: <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
@@ -68,7 +76,7 @@
           so it is important to self-quarantine even if you don't appear ill.</li>
       </ul>
       <br>
-      <br><br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br><br><span class="underline" @click="selectedpage='more'">Learn why you got this recommendation</span>
       <br>
       <button @click="selectedpage='results'">BACK</button>
     </div>
@@ -88,7 +96,7 @@
         <li>- Monitor yourself for any symptoms (e.g. difficulty breathing)</li>
         <li>- Prepare to be in isolation for 2 to 4 weeks</li>
         <li>- Find someone who will check in on you and help you if you get sick</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Centers for Disease Control</a></li>
+        <li>- Details: <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
@@ -96,9 +104,11 @@
           because you have higher-than-average risk factors.</li>
         <li>People start spreading COVID-19 a week before they show symptoms, 
           so it is important to self-isolate even if no one in your community appears ill.</li>
+        <li>Even if you didn't trigger this recommendation, you may want to voluntarily 
+          begin self-isolation if you live with someone who is particularly vulnerable.</li>
       </ul>
       <br>
-      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br><span class="underline" @click="selectedpage='more'">Learn why you got this recommendation</span>
       <br>
       <button @click="selectedpage='results'">BACK</button>
     </div>
@@ -118,7 +128,7 @@
         <li>- Avoid touching your face</li>
         <li>- Cancel any gatherings of people you are in charge of</li>
         <li>- Prepare to social distance for 2 to 4 weeks</li>
-        <li>- Details: <a href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Centers for Disease Control</a></li>
+        <li>- Details: <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Centers for Disease Control</a></li>
       </ul>
       <h2>Why is this important?</h2>
       <ul class="left">
@@ -128,7 +138,7 @@
           is important to practice social distancing even if no one in your community appears ill.</li>
       </ul>
       <br>
-      <br><span class="underline" @click="selectedpage='more'">Learn More</span>
+      <br><span class="underline" @click="selectedpage='more'">Learn why you got this recommendation</span>
       <br>
       <button @click="selectedpage='results'">BACK</button>
     </div>
@@ -152,23 +162,31 @@
         <li>- There are 4 zones of international travel that result in a recommendation of <i>Self-Quarantine</i>: China, Europe, Iran, South Korea.</li>
         <li>- Being in close contact with someone diagnosed with COVID-19 results in a recommendation of <i>Self-Quarantine</i>.</li>
         <li>- All other selections will result in either a recommendation of <i>Self-Protective Isolation</i> or <i>Social Distancing</i>.</li>
-        <li>- All other questions (age and comorbidity) use <a href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348">Bayesian statistics</a> to estimate the likelihood of mortality relative to the average confirmed case.</li>
+        <li>- All other questions (age and comorbidity) use <a target="_blank" href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348">Bayesian statistics</a> to estimate the likelihood of mortality relative to the average confirmed case.</li>
         <li>- If a respondent's submission exceeds the average likely mortality, this application recommends <i>Self-Protective Isolation</i></li>
         <li>- All other respondents are recommended to practice <i>Social Distancing</i>.</li>
-        <li>- These statistics are collected from <a href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a></li>
+        <li>- These statistics are collected from <a target="_blank" href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a></li>
+        <li>- There are correlations inside the CCDC's data (e.g. age and cardiovascular disease) that are not being accounted for in this model. That means the recommendations lean toward more stringent practices like isolation.</li>
+        <li>- There are complex interactions between comorbidities that are not accounted for in this model. Instead, the recommendation only uses the highest likelihood factor, and does not multiply multiple pieces of information.</li>
+        <li>- The single value mortalities used are as follows: 
+          <ul>
+            <li>- - Age: [(0-40, 0.32%), (40-50, 0.66%), (50-60,1.93%), (60-70,5.35%), (70-80,11.82%), (80+, 21.93%)]</li>
+            <li>- - Disease: [(Cardiovascular, 15.65%), (Diabetes, 10.78%), 
+              (Respiratory,9.30%), (Hypertension,8.91%), (Cancer,8.33%)]</li>
+          </ul>
         <li>- Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>
       </ul>
       <h2>Resources</h2>
       <ul class="left">
-        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/get-your-household-ready-for-COVID-19.html">CDC: Preparedness Plan</a></li>
-        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">CDC: When You're Sick</a></li>
-        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">CDC: When You're High Risk</a></li>
-        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/php/risk-assessment.html">CDC: Terminology</a></li>
-        <li>- <a href="https://www.cdc.gov/coronavirus/2019-ncov/travelers/after-travel-precautions.html">CDC: Travel Recommendations</a></li>
-        <li>- <a href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">The Atlantic: Conversational Exploration of Social Distancing</a></li>
-        <li>- <a href="https://www.worldometers.info/coronavirus/">Worldometers:Frequently Updating COVID-19 Statistics</a></li>
-        <li>- <a href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Tomas Pueyo: Why You Must Act Now</a></li>
-        <li>- <a href="www.facebook.com/groups/670932227050506">Community Makers: Open Source COVID19 Medical Supplies</a></li>
+        <li>- <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/get-your-household-ready-for-COVID-19.html">CDC: Preparedness Plan</a></li>
+        <li>- <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">CDC: When You're Sick</a></li>
+        <li>- <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">CDC: When You're High Risk</a></li>
+        <li>- <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/php/risk-assessment.html">CDC: Terminology</a></li>
+        <li>- <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/travelers/after-travel-precautions.html">CDC: Travel Recommendations</a></li>
+        <li>- <a target="_blank" href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">The Atlantic: Conversational Exploration of Social Distancing</a></li>
+        <li>- <a target="_blank" href="https://www.worldometers.info/coronavirus/">Worldometers:Frequently Updating COVID-19 Statistics</a></li>
+        <li>- <a target="_blank" href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Tomas Pueyo: Why You Must Act Now</a></li>
+        <li>- <a target="_blank" href="www.facebook.com/groups/670932227050506">Community Makers: Open Source COVID19 Medical Supplies</a></li>
       </ul>
       <br>
       <button @click="selectedpage='results'">BACK</button>
@@ -177,6 +195,7 @@
 </template>
 
 <script>
+window.onbeforeunload = function() { return "Your data will be lost."; };
 import Question from "./Question.vue";
 export default {
   name: "HelloWorld",
@@ -211,12 +230,7 @@ export default {
         this.recommendation = this.currentquestion;
         if (this.recommendation == "rec_emergency"){
           this.selectedpage = "emergency";
-        } else if (this.recommendation == "rec_quarantine") {
-          this.selectedpage = "results";
-        } else if (this.recommendation == "rec_calculate"){
-          // Calculate the Bayesian stats
-          this.recommendation = "rec_isolate";
-          this.recommendation = "rec_distance";
+        } else {
           this.selectedpage = "results";
         } 
       }
@@ -226,18 +240,18 @@ export default {
     return {
       selectedpage: "questions",
       nextlabel: "Next",
-      currentquestion: "zip",
+      currentquestion: "symptoms",
       recommendation: "",
       questions: {
-        zip: {
-          question: "Enter your zipcode to start",
-          type: "text",
-          placeholder: "Ex. 12345",
-          selected: [],
-          logic: {
-            "-1": "symptoms"
-          }
-        },
+        // zip: {
+        //   question: "Enter your zipcode to start",
+        //   type: "text",
+        //   placeholder: "Ex. 12345",
+        //   selected: [],
+        //   logic: {
+        //     "-1": "symptoms"
+        //   }
+        // },
         symptoms: {
           question: "Are you expressing any symptoms?",
           type: "radio",
@@ -328,7 +342,6 @@ export default {
             "0": "age-detail",
             "1": "existing"
           }
-          // XXX Bayes
         },
         "age-detail": {
           question: "What is your age range?",
@@ -344,11 +357,10 @@ export default {
             "-1": "age",
             "0": "existing",
             "1": "existing",
-            "2": "existing",
-            "3": "existing",
-            "4": "existing"
+            "2": "rec_isolate",
+            "3": "rec_isolate",
+            "4": "rec_isolate",
           }
-          // XXX Bayes
         },
         existing: {
           question: "Do you have any existing medical conditions?",
@@ -356,9 +368,9 @@ export default {
           answers: ["YES", "NO"],
           selected: [],
           logic: {
-            "-1": "rec_calculate",
+            "-1": "rec_distance",
             "0": "existing-detail",
-            "1": "rec_calculate",
+            "1": "rec_distance",
           }
         },
         "existing-detail": {
@@ -374,15 +386,14 @@ export default {
           ],
           selected: [],
           logic: {
-            "-1": "rec_calculate",
-            "0": "rec_calculate",
-            "1": "rec_calculate",
-            "2": "rec_calculate",
-            "3": "rec_calculate",
-            "4": "rec_calculate",
-            "5": "rec_calculate",
+            "-1": "rec_isolate",
+            "0": "rec_isolate",
+            "1": "rec_isolate",
+            "2": "rec_isolate",
+            "3": "rec_isolate",
+            "4": "rec_isolate",
+            "5": "rec_distance",
           }
-          // XXX Bayes
         }
       }
     };
@@ -456,5 +467,8 @@ button {
   text-align: left;
   margin-left: 10%;
   margin-right: 10%;
+}
+.gray{
+  color: #777;
 }
 </style>
