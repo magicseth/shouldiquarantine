@@ -59,6 +59,13 @@
       <button @click="reload()">BACK</button>
     </div>
     <div v-if="selectedpage== 'results'">
+      <div class="corner"><a
+          class="gray"
+          href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com"
+          target="_blank"
+        ><img alt="Share" width="50" src="../assets/blueshare.png" /></a>
+        
+        </div>
       <h2>
         Based on your responses,
         <br />you should practice:
@@ -672,5 +679,10 @@ button {
 }
 .hidden {
   display: none;
+}
+.corner {
+  position: absolute;
+  top: 7px;
+  right: 5%;
 }
 </style>
