@@ -1,18 +1,28 @@
 <template>
   <div class="question">
     <!-- {{question}} -->
-    <h2>{{ question.question }}</h2>
+    <div class="question">{{ question.question }}</div>
     <div v-if="question.type=='text'">
       <input v-model="textanswer" 
         :placeholder="question.placeholder"/>
     </div>
     <template v-if="question.answers">
       <div class="answer"
-        v-for="(answer, index) in question.answers"
+        v-for="(next_q, answer, index) in question.answers"
         :key="index"
-        :class="{selected:question.selected.includes(index)}"
-        @click="toggle(index)"
+        :class="{selected:question.selected.includes(answer)}"
+        @click="toggle(next_q, answer)"
       >{{$t(answer)}}</div>
+      <div class="nav">
+        <div class="gray" 
+        @click="back(question.back)"
+        :class="{hidden:(this.$parent.currentquestion =='symptoms')}"
+        >&lt; Back</div>
+        <div 
+        :class="{hidden:(question.type == 'radio')}"
+        @click="submit()"
+        >Next &gt;</div>
+      </div>
     </template>
     <template v-else></template>
   </div>
@@ -25,20 +35,69 @@ export default {
     question: Object
   },
   methods: {
-    toggle(index) {
-      if (this.question.type=="radio") {
-        if (this.question.selected.length  && this.question.selected == index){
-          this.question.selected = []
+    toggle(next_q, answer) {
+      if (this.question.type=="multiple"){
+        var position = this.question.selected.indexOf(answer);
+        if (position >= 0) {
+          this.question.selected.splice(position,1);
         } else {
-          this.question.selected = [index]
+          this.question.selected.push(answer);
         }
-        return
+        // if (this.question.selected.includes(answer)){
+        //   this.question.selected = this.question.selected.filter(v => v !== answer); 
+        // } else {
+        //   this.question.selected = this.question.selected.push(answer)
+        // }
+      } else if (this.question.type=="radio"){
+        alert(next_q)
+        this.question.selected = [answer];
+        this.$parent.currentquestion = next_q;
       }
-      var position = this.question.selected.indexOf(index);
-      if (position >= 0) {
-        this.question.selected.splice(position,1);
+    },
+    back(question) {
+      this.$parent.currentquestion = question;
+    },
+    submit() {
+      var answers = this.question.selected;
+      if (window.firebase.auth().currentUser) {
+        window.firebase
+          .firestore()
+          .collection("userdata")
+          .doc(window.firebase.auth().currentUser.uid)
+          .collection("allanswers")
+          .add({
+            answers: answers,
+            question: this.$parent.currentquestion,
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
+      }
+      if (answers.length == 0) {
+        // If they didn't select anything, don't leave the page
       } else {
-        this.question.selected.push(index);
+        this.$parent.currentquestion = this.question.answers[answers[0]]; // XXX This needs to select the lowest index answer, currently does the first clicked!
+      }
+
+      if (this.$parent.currentquestion.startsWith("rec_")) {
+        // The next step is a RECOMMENDATION instead of a question
+        this.$parent.recommendation = this.$parent.currentquestion;
+        if (window.firebase.auth().currentUser) {
+          window.firebase
+            .firestore()
+            .collection("userdata")
+            .doc(window.firebase.auth().currentUser.uid)
+                      .collection("allanswers")
+          .add({
+            answers: [this.$parent.recommendation],
+            question: "recommendation",
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
+        }
+
+        if (this.$parent.recommendation == "rec_emergency") {
+          this.$parent.selectedpage = "emergency";
+        } else {
+          this.$parent.selectedpage = "results";
+        }
       }
     }
   },
@@ -89,16 +148,45 @@ input {
   font-size: xx-large;
   text-align: center;
 }
-.answer.selected{background-color:rgb(30, 173, 95)}
+
+
+.question{
+  margin-top: 30px;
+  font-size: 34px;
+  color: #404040;
+  margin-bottom: 25px;
+}
+.answer.selected{
+  background-color: #E4E4E4;}
 .answer{
-  background-color:rgba(207, 207, 207, 0.601);
-  border: 3px solid #444;
-  margin:auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding:10px 0px;
+  border: 2px solid #396EF5;
   border-radius: 10px;
-  width: 60%;
-  font-size: xx-large;
+  
+  padding: 20px;
+  font-size: 20px;
+  color: #396EF5;
+
+  margin-bottom: 15px;
+}
+.nav{
+  display: flex;
+  justify-content: space-between;
+}
+.nav div{
+  padding-top: 20px;
+  font-size: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  display: inline-block;
+  width: 47%;
+  color: white;
+  background-color: #396EF5;
+  border-radius: 10px;
+}
+div.hidden{
+  display: none;
+}
+div.gray{
+  background-color: #C9C9C9;
 }
 </style>

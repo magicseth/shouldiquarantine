@@ -2,17 +2,17 @@
   <div>
     <img class="hidden" alt="Photo by visuals on Unsplash" src="../assets/masks.jpg" />
     <div
-      id="title"
+      class="title"
       @click="reload()"
-      :class="{big:(selectedpage == 'questions')}"
-    >ShouldIQuarantine.com</div>
+    >Should I Quarantine.com</div>
+    <div class="subtitle">Tool to help you understand what to do against COVID-19</div>
 
     <div v-if="selectedpage== 'questions'">
       <template v-for="(question, qid, index) in questions">
         <question v-if="qid == currentquestion" :question="question" :key="index" />
       </template>
 
-      <button @click="nextQuestion()">{{nextlabel}}</button>
+      <!-- <button @click="nextQuestion()">{{nextlabel}}</button> -->
       <div class="footer">
         <p class="gray">
           <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
@@ -399,59 +399,6 @@ export default {
     reload() {
       location.reload();
     },
-    nextQuestion() {
-      var sels = this.questions[this.currentquestion].selected;
-      var logic = this.questions[this.currentquestion].logic;
-      const answers = [];
-      // console.log(this.currentquestion);
-      sels.forEach(selectedindex => {
-        const answer = this.questions[this.currentquestion].answers[
-          selectedindex
-        ];
-        answers.push(answer);
-      });
-      if (window.firebase.auth().currentUser) {
-        window.firebase
-          .firestore()
-          .collection("userdata")
-          .doc(window.firebase.auth().currentUser.uid)
-          .collection("allanswers")
-          .add({
-            answers: answers,
-            question: this.currentquestion,
-            created: window.firebase.firestore.Timestamp.fromDate(new Date())
-          });
-      }
-      if (sels.length == 0) {
-        // If they didn't select anything
-        this.currentquestion = logic["-1"]; // Perform some default action
-      } else {
-        this.currentquestion = logic[sels.sort()[0]]; // TODO This could be more intelligent than choosing the lowest number...
-      }
-
-      if (!this.questions[this.currentquestion]) {
-        // The next step is a RESULT instead of a question
-        this.recommendation = this.currentquestion;
-        if (window.firebase.auth().currentUser) {
-          window.firebase
-            .firestore()
-            .collection("userdata")
-            .doc(window.firebase.auth().currentUser.uid)
-                      .collection("allanswers")
-          .add({
-            answers: [this.recommendation],
-            question: "recommendation",
-            created: window.firebase.firestore.Timestamp.fromDate(new Date())
-          });
-        }
-
-        if (this.recommendation == "rec_emergency") {
-          this.selectedpage = "emergency";
-        } else {
-          this.selectedpage = "results";
-        }
-      }
-    }
   },
   data() {
     return {
@@ -471,146 +418,111 @@ export default {
         symptoms: {
           question: "Are you exhibiting any symptoms?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: {
+            "Yes":"symptoms-detail",
+            "No":"travel"},
           selected: [],
-          logic: {
-            "-1": "symptoms",
-            "0": "symptoms-detail",
-            "1": "travel"
-          }
+          back: "",
         },
         "symptoms-detail": {
           question: "Have you recently developed any of these symptoms?",
           type: "multiple",
-          answers: [
-            "symptoms.breathing",
-            "Persistent Chest Pain",
-            "Blueish Lips or Face",
-            "Confusion or Inability to Awaken",
-            "Fever",
-            "Persistent Cough",
-            "Sore Throat",
-            "None of These"
-          ],
+          answers: {
+            "symptoms.breathing" : "rec_emergency",
+            "Persistent Chest Pain" : "rec_emergency",
+            "Blueish Lips or Face" : "rec_emergency",
+            "Confusion or Inability to Awaken" : "rec_emergency",
+            "Fever" : "rec_quarantine",
+            "Persistent Cough" : "rec_quarantine",
+            "Sore Throat" : "travel",
+            "None of These" : "travel"
+          },
           selected: [],
-          logic: {
-            "-1": "travel",
-            "0": "rec_emergency",
-            "1": "rec_emergency",
-            "2": "rec_emergency",
-            "3": "rec_emergency",
-            "4": "rec_quarantine",
-            "5": "rec_quarantine",
-            "6": "travel",
-            "7": "travel"
-          }
+          back: "symptoms",
         },
         travel: {
           question:
             "Have you traveled internationally within the last 2 weeks?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: {
+            "Yes" : "travel-detail",
+            "No" : "contact"},
           selected: [],
-          logic: {
-            "-1": "travel",
-            "0": "travel-detail",
-            "1": "contact"
-          }
+          back: "symptoms-detail",
         },
         "travel-detail": {
           question: "To which countries?",
           type: "multiple",
-          answers: ["China", "Europe", "Iran", "South Korea", "None of These"],
+          answers: {
+            "China" : "rec_quarantine",
+            "Europe" : "rec_quarantine",
+            "Iran" : "rec_quarantine",
+            "South Korea" : "rec_quarantine",
+            "None of These" : "contact"},
           selected: [],
-          logic: {
-            "-1": "contact",
-            "0": "rec_quarantine",
-            "1": "rec_quarantine",
-            "2": "rec_quarantine",
-            "3": "rec_quarantine",
-            "4": "contact"
-          }
+          back: "travel",
         },
         contact: {
           question:
             "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "radio",
-          answers: ["YES", "NOT SURE"],
+          answers: {
+            "Yes": "rec_quarantine", 
+            "Not Sure": "age"},
           selected: [],
-          logic: {
-            "-1": "contact",
-            "0": "rec_quarantine",
-            "1": "age"
-          }
+          back: "travel-detail",
         },
         age: {
           question: "Are you more than 40 years old?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: {
+            "Yes" : "age-detail", 
+            "No" : "existing"},
           selected: [],
-          logic: {
-            "-1": "existing",
-            "0": "age-detail",
-            "1": "existing"
-          }
+          back: "contact",
         },
         "age-detail": {
           question: "What is your age range?",
           type: "radio",
-          answers: ["40-49", "50-59", "60-69", "70-79", "80+"],
+          answers: {
+            "40-49" : "existing", 
+            "50-59" : "existing", 
+            "60-69" : "rec_isolate", 
+            "70-79" : "rec_isolate", 
+            "80+" : "rec_isolate"},
           selected: [],
-          logic: {
-            "-1": "age",
-            "0": "existing",
-            "1": "existing",
-            "2": "rec_isolate",
-            "3": "rec_isolate",
-            "4": "rec_isolate"
-          }
+          back: "age",
         },
         existing: {
           question: "Do you have any existing medical conditions?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: {
+            "Yes" : "existing-detail", 
+            "No" : "caregiver"},
           selected: [],
-          logic: {
-            "-1": "caregiver",
-            "0": "existing-detail",
-            "1": "caregiver"
-          }
+          back: "age-detail",
         },
         "existing-detail": {
           question: "Which of these medical conditions do you currently have?",
           type: "multiple",
-          answers: [
-            "Cancer",
-            "High Blood Pressure",
-            "Lung Disease (e.g. COPD)",
-            "Diabetes",
-            "Heart Disease",
-            "None of These"
-          ],
+          answers: {
+            "Cancer" : "rec_isolate",
+            "High Blood Pressure" : "rec_isolate",
+            "Lung Disease (e.g. COPD)" : "rec_isolate",
+            "Diabetes" : "rec_isolate",
+            "Heart Disease" : "rec_isolate",
+            "None of These" : "caregiver"},
           selected: [],
-          logic: {
-            "-1": "caregiver",
-            "0": "rec_isolate",
-            "1": "rec_isolate",
-            "2": "rec_isolate",
-            "3": "rec_isolate",
-            "4": "rec_isolate",
-            "5": "caregiver"
-          }
+          back: "existing",
         },
         caregiver: {
-          question: "Are you a primary caregiver for someone who would answer yes to the previous questions?",
+          question: "Are you a primary caregiver for someone who would answer yes to any of the previous questions?",
           type: "radio",
-          answers: ["YES", "NO"],
+          answers: {
+            "Yes" : "rec_isolate",
+            "No" : "rec_distance"},
           selected: [],
-          logic: {
-            "-1": "rec_distance",
-            "0": "rec_isolate",
-            "1": "rec_distance"
-          }
+          back: "existing-detail",
         }
       }
     };
@@ -646,16 +558,6 @@ button {
   border-radius: 10px;
   width: 60%;
   font-size: xx-large;
-}
-#title {
-  font-size: medium;
-  font-weight: bold;
-  color: rgb(68, 140, 255);
-  margin: -40px 0 0;
-}
-#title.big {
-  font-size: xx-large;
-  margin: 40px 0 0;
 }
 .footer {
   display: block;
@@ -695,5 +597,18 @@ button {
   position: absolute;
   top: 7px;
   right: 5%;
+}
+
+.title {
+  font-style: italic;
+  font-size: 25px;
+  color: #396EF5;
+  margin-bottom: 10px;
+}
+.subtitle{
+  font-weight: normal;
+  font-size: 14px;
+  color: #2D2D2D;
+  opacity: 0.5;
 }
 </style>
