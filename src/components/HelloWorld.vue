@@ -638,7 +638,7 @@ button {
     display:block;
   }
   .container{
-    position: fixed;
+    position: absolute;
     right: 0px;
     width: 45vw;
   }

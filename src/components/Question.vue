@@ -49,7 +49,6 @@ export default {
         //   this.question.selected = this.question.selected.push(answer)
         // }
       } else if (this.question.type=="radio"){
-        alert(next_q)
         this.question.selected = [answer];
         this.$parent.currentquestion = next_q;
       }
