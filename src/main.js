@@ -15,22 +15,32 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   window.firebase.initializeApp(firebaseConfig);
 
   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
   // // The Firebase SDK is initialized and available here!
   //
-  window.firebase.auth().signInAnonymously().catch(function(error) {
+  window.firebase.auth().signInAnonymously().catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
-    console.log(errorCode +" "+ errorMessage)
+    console.log(errorCode + " " + errorMessage)
   });
-  
-  window.firebase.auth().onAuthStateChanged(user => { 
+
+  window.firebase.auth().onAuthStateChanged(user => {
     console.log(user)
-   });
+    window.firebase
+      .firestore()
+      .collection("userdata")
+      .doc(window.firebase.auth().currentUser.uid)
+      .collection("allanswers")
+      .add({
+        answers: [document.referrer],
+        question: "referer",
+        created: window.firebase.firestore.Timestamp.fromDate(new Date())
+      });
+  });
   // firebase.messaging().requestPermission().then(() => { });
   // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
   //
