@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="temp">
     <div class="bigonly"><img class="picc" alt="Photo by kelly-sikkema on Unsplash" src="../assets/tissues.jpg" /></div>
     <div class="container">
       <div
@@ -13,19 +13,6 @@
           <question v-if="qid == currentquestion" :question="question" :key="index" />
         </template>
 
-        <!-- <button @click="nextQuestion()">{{nextlabel}}</button> -->
-        <div class="footer">
-          <p class="gray">
-            <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
-            <br />Last Update: 2020-03-16
-            <br />
-            <a
-              class="gray"
-              href="https://github.com/magicseth/shouldiquarantine"
-              target="_blank"
-            >Made by Raphaels</a>
-          </p>
-        </div>
       </div>
       <div v-if="selectedpage== 'disclaimer'">
         <h2>Disclaimer</h2>
@@ -100,6 +87,7 @@
         <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
       </div>
       <div v-if="selectedpage== 'quarantine'">
+        <div class="question">Based on your responses, you should practice:</div>
         <h2>What is Self-Quarantine?</h2>
         <ul class="left">
           <li>
@@ -384,6 +372,15 @@
         <button @click="selectedpage='results'">BACK</button>
       </div>
     </div>
+    <div class="white footer">
+      <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
+      <span>Last Update: 2020-03-16</span>
+      <span><a
+        class="white"
+        href="https://github.com/magicseth/shouldiquarantine"
+        target="_blank"
+      >Made by Raphaels</a></span>
+    </div>
   </div>
 </template>
 
@@ -561,11 +558,28 @@ button {
   width: 60%;
   font-size: xx-large;
 }
-.footer {
-  display: block;
-  position: static;
-  bottom: 0;
+/* html{
+  height: 100%;
   width: 100%;
+} */
+.temp{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.footer {
+  text-align: center;
+  z-index: 1;
+  background-color:#396EF5;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  font-size: 15px;
+}
+.footer span {
+  margin: auto;
+  padding: 10px;
 }
 .underline {
   text-decoration: underline;
@@ -589,8 +603,8 @@ button {
   margin-left: 10%;
   margin-right: 10%;
 }
-.gray {
-  color: #777;
+.white {
+  color: white;
 }
 .hidden {
   display: none;
@@ -613,7 +627,6 @@ button {
   color: #2D2D2D;
   opacity: 0.5;
 }
-
 .bigonly{
   display: none;
   position: fixed;
@@ -632,6 +645,7 @@ button {
   margin-top: 40px;
   margin-left: 20px;
   margin-right: 20px;
+  min-width: 250px;
 }
 @media only screen and (min-width: 800px) {
   .bigonly {

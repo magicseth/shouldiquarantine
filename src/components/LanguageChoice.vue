@@ -14,3 +14,8 @@ export default {
   }
 }
 </script>
+<style>
+.locale-changer{
+  display: none;
+}
+</style>
