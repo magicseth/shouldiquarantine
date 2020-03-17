@@ -1,20 +1,32 @@
 <template>
   <div class="question">
     <!-- {{question}} -->
-    <h2>{{ question.question }}</h2>
+    <div class="question">{{ question.question }}</div>
     <div v-if="question.type=='text'">
-      <input v-model="textanswer" 
-        :placeholder="question.placeholder"/>
+      <input v-model="textanswer" :placeholder="question.placeholder" />
     </div>
     <template v-if="question.answers">
       <div class="answer"
-        v-for="(answer, index) in question.answers"
-        :key="index"
-        :class="{selected:question.selected.includes(index)}"
-        @click="toggle(index)"
-      >{{answer}}</div>
-    </template>
-    <template v-else></template>
+      v-for="(next_q, answer, index) in question.answers"
+      :key="index"
+      :class="{selected:question.selected.includes(answer)}"
+      @click="toggle(next_q, answer)"
+      >{{$t(answer)}}</div>
+      <div class="nav">
+      <div class="gray" 
+      @click="back(question.back)"
+      :class="{hidden:(this.$parent.currentquestion =='symptoms')}"
+      >&lt; Back</div>
+      <div 
+      :class="{hidden:(question.type == 'radio')}"
+      @click="submit()"
+      >Next &gt;</div>
+      </div>
+</template>
+
+<template v-else>
+  
+</template>
   </div>
 </template>
 
@@ -25,20 +37,84 @@ export default {
     question: Object
   },
   methods: {
-    toggle(index) {
-      if (this.question.type=="radio") {
-        if (this.question.selected.length  && this.question.selected == index){
-          this.question.selected = []
+    toggle(next_q, answer) {
+      if (this.question.type == "multiple") {
+        var position = this.question.selected.indexOf(answer);
+        if (position >= 0) {
+          this.question.selected.splice(position, 1);
         } else {
-          this.question.selected = [index]
+          this.question.selected.push(answer);
         }
-        return
+        // if (this.question.selected.includes(answer)){
+        //   this.question.selected = this.question.selected.filter(v => v !== answer); 
+        // } else {
+        //   this.question.selected = this.question.selected.push(answer)
+        // }
+      } else if (this.question.type == "radio") {
+        this.question.selected = [answer];
+        this.submit()
       }
-      var position = this.question.selected.indexOf(index);
-      if (position >= 0) {
-        this.question.selected.splice(position,1);
+    },
+    back(question) {
+      this.$parent.currentquestion = question;
+    },
+    submit() {
+      var answers = this.question.selected;
+      if (window.firebase.auth().currentUser) {
+        window.firebase
+          .firestore()
+          .collection("userdata")
+          .doc(window.firebase.auth().currentUser.uid)
+          .collection("allanswers")
+          .add({
+            answers: answers,
+            question: this.$parent.currentquestion,
+            created: window.firebase.firestore.Timestamp.fromDate(new Date())
+          });
+      }
+
+      var urgencies = [ // LEAST URGENT
+        "NO RECCOMENDATION YET",
+        "rec_distance",
+        "rec_isolate",
+        "rec_quarantine",
+        "rec_emergency",
+      ]; // MOST URGENT
+      var current_urgency = 0;
+
+      if (answers.length == 0) {
+        // If they didn't select anything, don't leave the page
       } else {
-        this.question.selected.push(index);
+        answers.forEach(selection => {
+          // Cycle through all the options they selected
+          if (this.question.answers[selection].startsWith("rec_")){
+            // If they've selected a choice that leads to a recommendation
+            // Find the most urgent by storing the maximum
+            current_urgency = Math.max(current_urgency, urgencies.indexOf(this.question.answers[selection]));
+          } else {
+            // Otherwise, head to next question
+            this.$parent.currentquestion = this.question.answers[answers[0]];
+          }
+        })
+      }
+      if (current_urgency){
+        // Some selection has led to a recommendation
+        var most_urgent_selection = urgencies[current_urgency]
+        this.$parent.recommendation = most_urgent_selection;
+        this.$parent.selectedpage = "results";
+
+        if (window.firebase.auth().currentUser) {
+          window.firebase
+            .firestore()
+            .collection("userdata")
+            .doc(window.firebase.auth().currentUser.uid)
+            .collection("allanswers")
+            .add({
+              answers: [this.$parent.recommendation],
+              question: "recommendation",
+              created: window.firebase.firestore.Timestamp.fromDate(new Date())
+            });
+        }
       }
     }
   },
@@ -53,52 +129,53 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h2 {
-  margin: 20px;
+<style>
+.question {
+  margin-top: 30px;
+  font-size: 34px;
+  color: #404040;
+  margin-bottom: 25px;
 }
 
-h3 {
-  margin: 40px 0 0;
+.answer:hover {
+  background-color: #ccc;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.answer.selected {
+  background-color: #E4E4E4;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-::-webkit-input-placeholder {
-   font-style: italic;
-}
-:-moz-placeholder {
-   font-style: italic;  
-}
-::-moz-placeholder {
-   font-style: italic;  
-}
-:-ms-input-placeholder {  
-   font-style: italic; 
-}
-input {
-  padding: 10px 0px;
-  font-size: xx-large;
-  text-align: center;
-}
-.answer.selected{background-color:rgb(30, 173, 95)}
-.answer{
-  background-color:rgba(207, 207, 207, 0.601);
-  border: 3px solid #444;
-  margin:auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding:10px 0px;
+
+.answer {
+  border: 2px solid #396EF5;
   border-radius: 10px;
-  width: 60%;
-  font-size: xx-large;
+  padding: 20px;
+  font-size: 20px;
+  color: #396EF5;
+  margin-bottom: 15px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav>* {
+  padding-top: 20px;
+  font-size: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  display: inline-block;
+  width: 47%;
+  color: white;
+  background-color: #396EF5;
+  border-radius: 10px;
+}
+
+div.hidden {
+  display: none;
+}
+
+div.gray {
+  background-color: #C9C9C9;
 }
 </style>

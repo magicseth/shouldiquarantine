@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Should I Quarantine?"/>
+    <HelloWorld msg="Should I Quarantine?" />
+    <language-choice />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from "./components/HelloWorld.vue";
+import LanguageChoice from "./components/LanguageChoice.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
+    LanguageChoice,
     HelloWorld
   }
-}
+};
 </script>
 
 <style>
 body {
-  background-color: black;
+  background-color: white;
+  margin: 0px;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: bold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: white;
-  margin-top: 60px;
+  text-align: left;
+  color: black;
 }
 </style>
