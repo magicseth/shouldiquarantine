@@ -4,11 +4,10 @@
     <div class="container">
       <div class="title" @click="reload()">Should I Quarantine.com</div>
       <div class="subtitle">Tool to help you understand what to do against COVID-19</div>
+      <div v-if="selectedpage== 'questions'">
         <template v-for="(question, qid, index) in questions">
           <question v-if="qid == currentquestion" :question="question" :key="index" />                 
-        </template>
-      <div v-if="selectedpage== 'questions'">
-  
+        </template>  
       </div>
       <div v-if="selectedpage== 'disclaimer'">
         <div class="question">Disclaimer</div>
@@ -238,6 +237,10 @@
             <li><a target="_blank" href="www.facebook.com/groups/670932227050506">Community Makers: Open Source COVID19 Medical Supplies</a>
             </li>
           </ul>
+        </div>
+        <div class="nav margbot">
+          <div class="gray" @click="reload()">Start Again</div>
+          <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
         </div>
       </div>
     </div>
