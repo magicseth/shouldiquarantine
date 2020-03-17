@@ -240,7 +240,7 @@
           - The CDC uses the word
           <strong>QUARANTINE</strong> only for individuals
           who are NOT yet symptomatic. In this application, we allow quarantine
-          to cover those who are expressing symptoms already.
+          to cover those who are exhibiting symptoms already.
         </li>
         <li>
           - The CDC uses the word
@@ -469,7 +469,7 @@ export default {
         //   }
         // },
         symptoms: {
-          question: "Are you expressing any symptoms?",
+          question: "Are you exhibiting any symptoms?",
           type: "radio",
           answers: ["YES", "NO"],
           selected: [],
