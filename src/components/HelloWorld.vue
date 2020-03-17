@@ -34,9 +34,9 @@
           <div class="question">You should proceed to an emergency room immediately.</div>
           <div class="rec_detail">
             <strong>The symptoms you described constitute a medical emergency.
-    <br />
-    <br />Have someone call the hospital, and describe your symptoms over the phone.
-    </strong>
+            <br />
+            <br />Have someone call the hospital, and describe your symptoms over the phone.
+            </strong>
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
@@ -85,7 +85,7 @@
           <div class="rec_detail">
             <strong>What is Self-Protective Isolation?</strong>
             <br />
-            <br />Self-Protective Isolation is physical separation of any person at high risk of severe illness or death if infected by COVID-19.
+            <br />Self-Protective Isolation is physical separation of any person at high risk of severe illness or death, to prevent them from being infected by COVID-19.
           </div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
@@ -151,7 +151,7 @@
           </div>
         </div>
         <br />
-        <div class="nav">
+        <div class="nav margbot">
           <div class="gray" @click="reload()">Start Again</div>
           <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
         </div>
@@ -442,6 +442,9 @@ button {
 }
 
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   text-align: center;
   z-index: 1;
   background-color: #396EF5;
@@ -530,6 +533,7 @@ button {
   padding-left: 20px;
   padding-right: 20px;
   min-width: 250px;
+  margin-bottom: 60px;
   box-sizing: border-box;
 }
 
@@ -562,5 +566,9 @@ button {
 .hiddenlink {
   text-decoration: none;
   color: white;
+}
+
+.margbot{
+  margin-bottom: 40px;
 }
 </style>
