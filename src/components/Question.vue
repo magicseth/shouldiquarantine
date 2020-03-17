@@ -50,7 +50,7 @@ export default {
         // }
       } else if (this.question.type=="radio"){
         this.question.selected = [answer];
-        this.$parent.currentquestion = next_q;
+        this.submit()
       }
     },
     back(question) {
@@ -111,8 +111,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h2 {
+<style>
+/* h2 {
   margin: 20px;
 }
 
@@ -147,7 +147,7 @@ input {
   font-size: xx-large;
   text-align: center;
 }
-
+ */
 
 .question{
   margin-top: 30px;
@@ -155,6 +155,8 @@ input {
   color: #404040;
   margin-bottom: 25px;
 }
+.answer:hover{
+  background-color: #E4E4E4;}
 .answer.selected{
   background-color: #E4E4E4;}
 .answer{
@@ -171,7 +173,7 @@ input {
   display: flex;
   justify-content: space-between;
 }
-.nav div{
+.nav > *{
   padding-top: 20px;
   font-size: 20px;
   padding-bottom: 20px;
