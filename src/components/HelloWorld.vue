@@ -2,47 +2,31 @@
   <div class="temp">
     <div class="bigonly"><img class="picc" alt="Photo by kelly-sikkema on Unsplash" src="../assets/tissues.jpg" /></div>
     <div class="container">
-      <div
-        class="title"
-        @click="reload()"
-      >Should I Quarantine.com</div>
+      <div class="title" @click="reload()">Should I Quarantine.com</div>
       <div class="subtitle">Tool to help you understand what to do against COVID-19</div>
-
-      <div v-if="selectedpage== 'questions'">
         <template v-for="(question, qid, index) in questions">
-          <question v-if="qid == currentquestion" :question="question" :key="index" />
+          <question v-if="qid == currentquestion" :question="question" :key="index" />                 
         </template>
-
+      <div v-if="selectedpage== 'questions'">
+  
       </div>
       <div v-if="selectedpage== 'disclaimer'">
         <div class="question">Disclaimer</div>
         <div class="rec_detail">
           <ul>
             <li>You should always follow recommendations from your personal doctor instead of websites.</li>
-            <li>This service was not made by medical professionals. However it is the product 
-              of substantial research and interviews with multiple doctors, specifically for the 
-              COVID-19 pandemic in the USA, but in its attempt to simplify it may miss 
+            <li>This service was not made by medical professionals. However it is the product of substantial research and interviews with multiple doctors, specifically for the COVID-19 pandemic in the USA, but in its attempt to simplify it may miss
               important factors.</li>
-            <li>Please do not interpret the information provided here as advice.
-              Our intent is simply to pass on the recommendations of CDC, and provide a framework
-              for thinking about these topics. You can find details about the resources used in 
+            <li>Please do not interpret the information provided here as advice. Our intent is simply to pass on the recommendations of CDC, and provide a framework for thinking about these topics. You can find details about the resources used in
               the methodology link below.</li>
-            <li>If you have ideas and credentials to improve this web service,
-              please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.</li>
-            <li>We don't collect any personally identifiable information, though we do 
-              collect your responses. That data will never be sold, but shared with the 
-              medical community. We use cookies to keep track of your answers.</li>
+            <li>If you have ideas and credentials to improve this web service, please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.</li>
+            <li>We don't collect any personally identifiable information, though we do collect your responses. That data will never be sold, but shared with the medical community. We use cookies to keep track of your answers.</li>
             <li>Check out our <span class="underline" @click="selectedpage='more'">methodology</span></li>
           </ul>
         </div>
         <div class="nav">
-          <div class="gray" 
-          @click="reload()"
-          >Start Again</div>
-          <a class="hiddenlink" 
-            href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com"
-            target="_blank"
-          >Share</a>
+          <div class="gray" @click="reload()">Start Again</div>
+          <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
         </div>
       </div>
       <div v-if="selectedpage== 'results'">
@@ -50,9 +34,9 @@
           <div class="question">You should proceed to an emergency room immediately.</div>
           <div class="rec_detail">
             <strong>The symptoms you described constitute a medical emergency.
-              <br />
-              <br />Have someone call the hospital, and describe your symptoms over the phone.
-            </strong>
+    <br />
+    <br />Have someone call the hospital, and describe your symptoms over the phone.
+    </strong>
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
@@ -64,8 +48,7 @@
           <div class="rec_detail">
             <strong>What is Self-Quarantine?</strong>
             <br />
-            <br />Self-Quarantine is the physical separation of anyone reasonably believed
-              to have been exposed to COVID-19 in order to prevent its spread.
+            <br />Self-Quarantine is the physical separation of anyone reasonably believed to have been exposed to COVID-19 in order to prevent its spread.
           </div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
@@ -80,37 +63,29 @@
               <li>Prepare to be in quarantine for 2 to 4 weeks</li>
               <li>Find someone who will check in on you and help you if you get sick</li>
               <li>Details:
-                <a
-                  target="_blank"
-                  href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html"
-                >Centers for Disease Control</a>
+                <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Centers for Disease Control</a>
               </li>
             </ul>
           </div>
           <div class="rec_detail">
             <strong>Why is this important?</strong>
             <br />
-            <br />Self-Quarantine helps you prevent the spread of disease
-              to people who are at greater risk of serious illness than yourself,
-              as well as reducing the strain on your local healthcare system.
-            <br />Some people will be quarantined who do not have COVID-19,
-            but this still reduces the spread of disease.
-            <br />You start spreading COVID-19 a week before you show symptoms,
-              so it is important to self-quarantine even if you don't appear ill.
+            <br />Self-Quarantine helps you prevent the spread of disease to people who are at greater risk of serious illness than yourself, as well as reducing the strain on your local healthcare system.
+            <br />Some people will be quarantined who do not have COVID-19, but this still reduces the spread of disease.
+            <br />You start spreading COVID-19 a week before you show symptoms, so it is important to self-quarantine even if you don't appear ill.
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
           </div>
         </div>
-
+  
         <div v-if="recommendation== 'rec_isolate'">
           <div class="question">Based on your responses, you should practice:</div>
           <div class="recommend">Self-Isolation</div>
           <div class="rec_detail">
             <strong>What is Self-Protective Isolation?</strong>
             <br />
-            <br />Self-Protective Isolation is physical separation of any person
-            at high risk of severe illness or death if infected by COVID-19.
+            <br />Self-Protective Isolation is physical separation of any person at high risk of severe illness or death if infected by COVID-19.
           </div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
@@ -125,36 +100,29 @@
               <li>Prepare to be in isolation for 2 to 4 weeks</li>
               <li>Find someone who will check in on you and help you if you get sick</li>
               <li>Details:
-                <a
-                  target="_blank"
-                  href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html"
-                >Centers for Disease Control</a>
+                <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Centers for Disease Control</a>
               </li>
             </ul>
           </div>
           <div class="rec_detail">
             <strong>Why is this important?</strong>
             <br />
-            <br />Self-Protective Isolation helps you avoid contracting COVID-19 from others
-            because you have higher-than-average risk factors.
-            <br />People start spreading COVID-19 a week before they show symptoms,
-            so it is important to self-isolate even if no one in your community appears ill.
-            <br />Even if you didn't trigger this recommendation, you may want to voluntarily
-            begin self-isolation if you live with someone who is particularly vulnerable.
+            <br />Self-Protective Isolation helps you avoid contracting COVID-19 from others because you have higher-than-average risk factors.
+            <br />People start spreading COVID-19 a week before they show symptoms, so it is important to self-isolate even if no one in your community appears ill.
+            <br />Even if you didn't trigger this recommendation, you may want to voluntarily begin self-isolation if you live with someone who is particularly vulnerable.
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
           </div>
         </div>
-
+  
         <div v-if="recommendation== 'rec_distance'">
           <div class="question">Based on your responses, you should practice:</div>
           <div class="recommend">Social Distancing</div>
           <div class="rec_detail">
             <strong>What is Social Distancing?</strong>
             <br />
-            <br />Social Distancing means avoiding crowded places where close contact
-            with others can occur.
+            <br />Social Distancing means avoiding crowded places where close contact with others can occur.
           </div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
@@ -168,20 +136,15 @@
               <li>Cancel any gatherings you have the influence to do so</li>
               <li>Prepare to practice social distancing for 2 to 4 weeks</li>
               <li>Details:
-                <a
-                  target="_blank"
-                  href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf"
-                >Centers for Disease Control</a>
+                <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/community-mitigation-strategy.pdf">Centers for Disease Control</a>
               </li>
             </ul>
           </div>
           <div class="rec_detail">
             <strong>Why is this important?</strong>
             <br />
-            <br />Social Distancing helps slow down the spread of COVID-19, which is
-            critical because of the rate at which it is overwhelming our healthcare system.
-            <br />People start spreading COVID-19 a week before they show symptoms, so it
-            is important to practice social distancing even if no one in your community appears ill.
+            <br />Social Distancing helps slow down the spread of COVID-19, which is critical because of the rate at which it is overwhelming our healthcare system.
+            <br />People start spreading COVID-19 a week before they show symptoms, so it is important to practice social distancing even if no one in your community appears ill.
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
@@ -189,13 +152,8 @@
         </div>
         <br />
         <div class="nav">
-          <div class="gray" 
-          @click="reload()"
-          >Start Again</div>
-          <a class="hiddenlink" 
-            href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com"
-            target="_blank"
-          >Share</a>
+          <div class="gray" @click="reload()">Start Again</div>
+          <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
         </div>
       </div>
       <div v-if="selectedpage== 'more'">
@@ -204,19 +162,13 @@
           <br />
           <ul>
             <li>The CDC uses the word
-            <strong>QUARANTINE</strong> only for individuals
-            who are NOT yet symptomatic. In this application, we allow quarantine
-            to cover those who are exhibiting symptoms already.
+              <strong>QUARANTINE</strong> only for individuals who are NOT yet symptomatic. In this application, we allow quarantine to cover those who are exhibiting symptoms already.
             </li>
             <li>The CDC uses the word
-              <strong>ISOLATION</strong> to refer to individuals who are
-              infected and infectious. In this application, we use the word to refer
-              to individuals practicing an extreme form of social distancing.
+              <strong>ISOLATION</strong> to refer to individuals who are infected and infectious. In this application, we use the word to refer to individuals practicing an extreme form of social distancing.
             </li>
             <li>The CDC defines the term
-              <strong>CLOSE CONTACT</strong> as being within approximately
-              6 feet of a COVID-19 case for a prolonged period of time, or having direct
-              contact with infectious secretions of a COVID-19 case (e.g. being coughed on).
+              <strong>CLOSE CONTACT</strong> as being within approximately 6 feet of a COVID-19 case for a prolonged period of time, or having direct contact with infectious secretions of a COVID-19 case (e.g. being coughed on).
             </li>
           </ul>
         </div>
@@ -239,10 +191,8 @@
               <i>Social Distancing</i>.
             </li>
             <li>All other questions (age and comorbidity) use
-              <a
-                target="_blank"
-                href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348"
-              >Bayesian statistics</a> to estimate the likelihood of mortality relative to the average confirmed case.
+              <a target="_blank" href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348">Bayesian statistics</a> to estimate the likelihood of mortality relative to the average
+              confirmed case.
             </li>
             <li>If a respondent's submission exceeds the average likely mortality, this application recommends
               <i>Self-Protective Isolation</i>
@@ -251,89 +201,41 @@
               <i>Social Distancing</i>.
             </li>
             <li>These statistics are collected from
-              <a
-                target="_blank"
-                href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51"
-              >Chinese Center for Disease Control and Prevention</a>
+              <a target="_blank" href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a>
             </li>
             <li>There are correlations inside the CCDC's data (e.g. age and cardiovascular disease) that are not being accounted for in this model. That means the recommendations lean toward more stringent practices like isolation.</li>
             <li>There are complex interactions between comorbidities that are not accounted for in this model. Instead, the recommendation only uses the highest likelihood factor, and does not multiply multiple pieces of information.</li>
             <li>The single value mortalities used are as follows:
               <ul>
                 <li>Age: [(0-40, 0.32%), (40-50, 0.66%), (50-60,1.93%), (60-70,5.35%), (70-80,11.82%), (80+, 21.93%)]</li>
-                <li>Disease: [(Cardiovascular, 15.65%), (Diabetes, 10.78%),
-                  (Respiratory,9.30%), (Hypertension,8.91%), (Cancer,8.33%)]
+                <li>Disease: [(Cardiovascular, 15.65%), (Diabetes, 10.78%), (Respiratory,9.30%), (Hypertension,8.91%), (Cancer,8.33%)]
                 </li>
               </ul>
             </li>
-            <li>Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>          </ul>
+            <li>Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>
+          </ul>
         </div>
         <div class="rec_detail">
           <strong>Resources</strong>
           <br />
           <ul>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/get-your-household-ready-for-COVID-19.html"
-              >CDC: Preparedness Plan</a>
+            <li><a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/get-your-household-ready-for-COVID-19.html">CDC: Preparedness Plan</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html"
-              >CDC: When You're Sick</a>
+            <li><a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">CDC: When You're Sick</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html"
-              >CDC: When You're High Risk</a>
+            <li><a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">CDC: When You're High Risk</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.cdc.gov/coronavirus/2019-ncov/php/risk-assessment.html"
-              >CDC: Terminology</a>
+            <li><a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/php/risk-assessment.html">CDC: Terminology</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.cdc.gov/coronavirus/2019-ncov/travelers/after-travel-precautions.html"
-              >CDC: Travel Recommendations</a>
+            <li><a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/travelers/after-travel-precautions.html">CDC: Travel Recommendations</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/"
-              >The Atlantic: Conversational Exploration of Social Distancing</a>
+            <li><a target="_blank" href="https://www.theatlantic.com/family/archive/2020/03/coronavirus-what-does-social-distancing-mean/607927/">The Atlantic: Conversational Exploration of Social Distancing</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://www.worldometers.info/coronavirus/"
-              >Worldometers:Frequently Updating COVID-19 Statistics</a>
+            <li><a target="_blank" href="https://www.worldometers.info/coronavirus/">Worldometers:Frequently Updating COVID-19 Statistics</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca"
-              >Tomas Pueyo: Why You Must Act Now</a>
+            <li><a target="_blank" href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Tomas Pueyo: Why You Must Act Now</a>
             </li>
-            <li>
-              -
-              <a
-                target="_blank"
-                href="www.facebook.com/groups/670932227050506"
-              >Community Makers: Open Source COVID19 Medical Supplies</a>
+            <li><a target="_blank" href="www.facebook.com/groups/670932227050506">Community Makers: Open Source COVID19 Medical Supplies</a>
             </li>
           </ul>
         </div>
@@ -343,10 +245,10 @@
       <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
       <span>Last Update: 2020-03-16</span>
       <span><a
-        class="white"
-        href="https://github.com/magicseth/shouldiquarantine"
-        target="_blank"
-      >Made by Raphaels</a></span>
+    class="white"
+    href="https://github.com/magicseth/shouldiquarantine"
+    target="_blank"
+    >Made by Raphaels</a></span>
     </div>
   </div>
 </template>
@@ -375,15 +277,16 @@ export default {
         //   placeholder: "Enter zipcode",
         //   selected: [],
         //   logic: {
-        //     "-1": "symptoms"
+        //   "-1": "symptoms"
         //   }
         // },
         symptoms: {
           question: "Are you exhibiting any symptoms?",
           type: "radio",
           answers: {
-            "Yes":"symptoms-detail",
-            "No":"travel"},
+            "Yes": "symptoms-detail",
+            "No": "travel"
+          },
           selected: [],
           back: "",
         },
@@ -391,25 +294,25 @@ export default {
           question: "Have you recently developed any of these symptoms?",
           type: "multiple",
           answers: {
-            "symptoms.breathing" : "rec_emergency",
-            "Persistent Chest Pain" : "rec_emergency",
-            "Blueish Lips or Face" : "rec_emergency",
-            "Confusion or Inability to Awaken" : "rec_emergency",
-            "Fever" : "rec_quarantine",
-            "Persistent Cough" : "rec_quarantine",
-            "Sore Throat" : "travel",
-            "None of These" : "travel"
+            "symptoms.breathing": "rec_emergency",
+            "Persistent Chest Pain": "rec_emergency",
+            "Blueish Lips or Face": "rec_emergency",
+            "Confusion or Inability to Awaken": "rec_emergency",
+            "Fever": "rec_quarantine",
+            "Persistent Cough": "rec_quarantine",
+            "Sore Throat": "travel",
+            "None of These": "travel"
           },
           selected: [],
           back: "symptoms",
         },
         travel: {
-          question:
-            "Have you traveled internationally within the last 2 weeks?",
+          question: "Have you traveled internationally within the last 2 weeks?",
           type: "radio",
           answers: {
-            "Yes" : "travel-detail",
-            "No" : "contact"},
+            "Yes": "travel-detail",
+            "No": "contact"
+          },
           selected: [],
           back: "symptoms-detail",
         },
@@ -417,21 +320,22 @@ export default {
           question: "To which countries?",
           type: "multiple",
           answers: {
-            "China" : "rec_quarantine",
-            "Europe" : "rec_quarantine",
-            "Iran" : "rec_quarantine",
-            "South Korea" : "rec_quarantine",
-            "None of These" : "contact"},
+            "China": "rec_quarantine",
+            "Europe": "rec_quarantine",
+            "Iran": "rec_quarantine",
+            "South Korea": "rec_quarantine",
+            "None of These": "contact"
+          },
           selected: [],
           back: "travel",
         },
         contact: {
-          question:
-            "Have you been in close contact with someone medically diagnosed with COVID-19?",
+          question: "Have you been in close contact with someone medically diagnosed with COVID-19?",
           type: "radio",
           answers: {
-            "Yes": "rec_quarantine", 
-            "Not Sure": "age"},
+            "Yes": "rec_quarantine",
+            "Not Sure": "age"
+          },
           selected: [],
           back: "travel-detail",
         },
@@ -439,8 +343,9 @@ export default {
           question: "Are you more than 40 years old?",
           type: "radio",
           answers: {
-            "Yes" : "age-detail", 
-            "No" : "existing"},
+            "Yes": "age-detail",
+            "No": "existing"
+          },
           selected: [],
           back: "contact",
         },
@@ -448,11 +353,12 @@ export default {
           question: "What is your age range?",
           type: "radio",
           answers: {
-            "40-49" : "existing", 
-            "50-59" : "existing", 
-            "60-69" : "rec_isolate", 
-            "70-79" : "rec_isolate", 
-            "80+" : "rec_isolate"},
+            "40-49": "existing",
+            "50-59": "existing",
+            "60-69": "rec_isolate",
+            "70-79": "rec_isolate",
+            "80+": "rec_isolate"
+          },
           selected: [],
           back: "age",
         },
@@ -460,8 +366,9 @@ export default {
           question: "Do you have any existing medical conditions?",
           type: "radio",
           answers: {
-            "Yes" : "existing-detail", 
-            "No" : "caregiver"},
+            "Yes": "existing-detail",
+            "No": "caregiver"
+          },
           selected: [],
           back: "age-detail",
         },
@@ -469,12 +376,13 @@ export default {
           question: "Which of these medical conditions do you currently have?",
           type: "multiple",
           answers: {
-            "Cancer" : "rec_isolate",
-            "High Blood Pressure" : "rec_isolate",
-            "Lung Disease (e.g. COPD)" : "rec_isolate",
-            "Diabetes" : "rec_isolate",
-            "Heart Disease" : "rec_isolate",
-            "None of These" : "caregiver"},
+            "Cancer": "rec_isolate",
+            "High Blood Pressure": "rec_isolate",
+            "Lung Disease (e.g. COPD)": "rec_isolate",
+            "Diabetes": "rec_isolate",
+            "Heart Disease": "rec_isolate",
+            "None of These": "caregiver"
+          },
           selected: [],
           back: "existing",
         },
@@ -482,8 +390,9 @@ export default {
           question: "Are you a primary caregiver for someone who would answer yes to any of the previous questions?",
           type: "radio",
           answers: {
-            "Yes" : "rec_isolate",
-            "No" : "rec_distance"},
+            "Yes": "rec_isolate",
+            "No": "rec_distance"
+          },
           selected: [],
           back: "existing-detail",
         }
@@ -498,18 +407,22 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
+
 h1 {
   font-size: xx-large;
   margin: 40px 0 0;
 }
+
 ul {
   padding-left: 30px;
 }
-li {
-}
+
+li {}
+
 a {
   color: #42b983;
 }
+
 button {
   background-color: rgb(68, 140, 255);
   border: 3px solid #444;
@@ -521,31 +434,37 @@ button {
   width: 60%;
   font-size: xx-large;
 }
-.temp{
+
+.temp {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 .footer {
   text-align: center;
   z-index: 1;
-  background-color:#396EF5;
+  background-color: #396EF5;
   margin-top: auto;
   display: flex;
   justify-content: space-between;
   height: 60px;
   font-size: 15px;
 }
+
 .footer span {
   margin: auto;
   padding: 10px;
 }
+
 .underline {
   text-decoration: underline;
 }
+
 .result.selected {
   background-color: rgb(30, 173, 95);
 }
+
 .result {
   background-color: #333;
   border: 3px solid #444;
@@ -557,17 +476,21 @@ button {
   font-size: x-large;
   font-weight: bold;
 }
+
 .left {
   text-align: left;
   margin-left: 10%;
   margin-right: 10%;
 }
+
 .white {
   color: white;
 }
+
 .hidden {
   display: none;
 }
+
 .corner {
   position: absolute;
   top: 7px;
@@ -580,56 +503,63 @@ button {
   color: #396EF5;
   margin-bottom: 10px;
 }
-.subtitle{
+
+.subtitle {
   font-weight: normal;
   font-size: 14px;
   color: #2D2D2D;
   opacity: 0.5;
 }
-.bigonly{
+
+.bigonly {
   display: none;
   position: fixed;
   width: 100%;
   height: 100%;
 }
+
 .picc {
   object-fit: cover;
   object-position: 80% 50%;
   width: 50%;
   height: 100%;
 }
-.container{
+
+.container {
   margin-top: 40px;
   padding-left: 20px;
   padding-right: 20px;
   min-width: 250px;
   box-sizing: border-box;
 }
+
 @media only screen and (min-width: 800px) {
   .bigonly {
-    display:block;
+    display: block;
   }
-  .container{
+  .container {
     position: relative;
     right: -50%;
     width: 50%;
   }
 }
-.recommend{
+
+.recommend {
   margin-top: -15px;
   height: 30px;
   margin-bottom: 10px;
-
   font-size: 24px;
   color: #396EF5;
 }
-.rec_detail{
+
+.rec_detail {
   margin-top: 30px;
   font-size: 14px;
   font-weight: normal;
   color: #2D2D2D;
 }
-.hiddenlink{
+
+.hiddenlink {
   text-decoration: none;
   color: white;
 }
