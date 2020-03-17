@@ -15,80 +15,51 @@
 
       </div>
       <div v-if="selectedpage== 'disclaimer'">
-        <h2>Disclaimer</h2>
-        <ul class="left">
-          <li>You should always follow recommendations from your personal doctor instead of websites.</li>
-          <li><br />This service was not made by medical professionals. However it is the product 
-            of substantial research and interviews with multiple doctors, specifically for the 
-            COVID-19 pandemic in the USA, but in its attempt to simplify it may miss 
-            important factors.</li>
-          <li><br />Please do not interpret the information provided here as advice.
-            Our intent is simply to pass on the recommendations of CDC, and provide a framework
-            for thinking about these topics. You can find details about the resources used in 
-            the methodology link below.</li>
-          <li><br />If you have ideas and credentials to improve this web service,
-            please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.</li>
-          <li><br />We don't collect any personally identifiable information, though we do 
-            collect your responses. That data will never be sold, but shared with the 
-            medical community. We use cookies to keep track of your answers.</li>
-          <li><br /></li>
-          <li><br /></li>
-        </ul>
-        <br /><span class="underline" @click="selectedpage='more'">Methodology</span>
-        <br />
-        <button @click="selectedpage='questions'">BACK</button>
-      </div>
-      <div v-if="selectedpage== 'emergency'">
-        <h1>You should proceed to an emergency room immediately.</h1>
-        <h2 class="left">
-          The symptoms you described constitute a medical emergency.
-          <br />
-          <br />Have someone call the hospital, and describe your symptoms over the phone.
-        </h2>
-        <br />
-        <button @click="reload()">BACK</button>
-      </div>
-      <!-- <div v-if="selectedpage== 'results'">
-        <div class="corner"><a
-            class="gray"
+        <div class="question">Disclaimer</div>
+        <div class="rec_detail">
+          <ul>
+            <li>You should always follow recommendations from your personal doctor instead of websites.</li>
+            <li>This service was not made by medical professionals. However it is the product 
+              of substantial research and interviews with multiple doctors, specifically for the 
+              COVID-19 pandemic in the USA, but in its attempt to simplify it may miss 
+              important factors.</li>
+            <li>Please do not interpret the information provided here as advice.
+              Our intent is simply to pass on the recommendations of CDC, and provide a framework
+              for thinking about these topics. You can find details about the resources used in 
+              the methodology link below.</li>
+            <li>If you have ideas and credentials to improve this web service,
+              please reach out to <a class="mailto" target="_blank" href="mailto:shouldiquarantine@gmail.com">shouldiquarantine@gmail.com</a>.</li>
+            <li>We don't collect any personally identifiable information, though we do 
+              collect your responses. That data will never be sold, but shared with the 
+              medical community. We use cookies to keep track of your answers.</li>
+            <li>Check out our <span class="underline" @click="selectedpage='more'">methodology</span></li>
+          </ul>
+        </div>
+        <div class="nav">
+          <div class="gray" 
+          @click="reload()"
+          >Start Again</div>
+          <a class="hiddenlink" 
             href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com"
             target="_blank"
-          ><img alt="Share" width="50" src="../assets/blueshare.png" /></a>
-          
-          </div>
-        <h2>
-          Based on your responses,
-          <br />you should practice:
-        </h2>
-        <br />
-        <br />
-        <div
-          class="result"
-          :class="{selected:(recommendation == 'rec_quarantine')}"
-          @click="selectedpage='quarantine'"
-        >Self-Quarantine</div>
-        <br />
-        <div
-          class="result"
-          :class="{selected:(recommendation == 'rec_isolate')}"
-          @click="selectedpage='isolate'"
-        >Self-Protective Isolation</div>
-        <br />
-        <div
-          class="result"
-          :class="{selected:(recommendation == 'rec_distance')}"
-          @click="selectedpage='distance'"
-        >Social Distancing</div>
-        <br />
-        <h2>Click a box for more details.</h2>
-        <br />
-        <span class="underline" @click="selectedpage='more'">Methodology</span>
-        <br />
-        <span class="underline" @click="selectedpage='disclaimer'">Disclaimer</span>
-      </div> -->
+          >Share</a>
+        </div>
+      </div>
       <div v-if="selectedpage== 'results'">
-        <div class="question">Based on your responses, you should practice:</div>
+        <div v-if="recommendation== 'rec_emergency'">
+          <div class="question">You should proceed to an emergency room immediately.</div>
+          <div class="rec_detail">
+            <strong>The symptoms you described constitute a medical emergency.
+              <br />
+              <br />Have someone call the hospital, and describe your symptoms over the phone.
+            </strong>
+          </div>
+          <div class="rec_detail">
+            <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
+          </div>
+        </div>
         <div v-if="recommendation== 'rec_quarantine'">
+          <div class="question">Based on your responses, you should practice:</div>
           <div class="recommend">Self-Quarantine</div>
           <div class="rec_detail">
             <strong>What is Self-Quarantine?</strong>
@@ -133,6 +104,7 @@
         </div>
 
         <div v-if="recommendation== 'rec_isolate'">
+          <div class="question">Based on your responses, you should practice:</div>
           <div class="recommend">Self-Isolation</div>
           <div class="rec_detail">
             <strong>What is Self-Protective Isolation?</strong>
@@ -176,6 +148,7 @@
         </div>
 
         <div v-if="recommendation== 'rec_distance'">
+          <div class="question">Based on your responses, you should practice:</div>
           <div class="recommend">Social Distancing</div>
           <div class="rec_detail">
             <strong>What is Social Distancing?</strong>
@@ -226,8 +199,6 @@
         </div>
       </div>
       <div v-if="selectedpage== 'more'">
-
-
         <div class="rec_detail">
           <strong>Terms</strong>
           <br />

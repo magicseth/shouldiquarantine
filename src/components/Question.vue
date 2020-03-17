@@ -5,7 +5,7 @@
     <div v-if="question.type=='text'">
       <input v-model="textanswer" 
         :placeholder="question.placeholder"/>
-    </div>
+    </div>  
     <template v-if="question.answers">
       <div class="answer"
         v-for="(next_q, answer, index) in question.answers"
@@ -79,6 +79,7 @@ export default {
       if (this.$parent.currentquestion.startsWith("rec_")) {
         // The next step is a RECOMMENDATION instead of a question
         this.$parent.recommendation = this.$parent.currentquestion;
+        this.$parent.selectedpage = "results";
         if (window.firebase.auth().currentUser) {
           window.firebase
             .firestore()
@@ -90,12 +91,6 @@ export default {
             question: "recommendation",
             created: window.firebase.firestore.Timestamp.fromDate(new Date())
           });
-        }
-
-        if (this.$parent.recommendation == "rec_emergency") {
-          this.$parent.selectedpage = "emergency";
-        } else {
-          this.$parent.selectedpage = "results";
         }
       }
     }
