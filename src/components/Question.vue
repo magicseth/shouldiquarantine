@@ -72,16 +72,37 @@ export default {
             created: window.firebase.firestore.Timestamp.fromDate(new Date())
           });
       }
+
+      var urgencies = [ // LEAST URGENT
+        "NO RECCOMENDATION YET",
+        "rec_distance",
+        "rec_isolate",
+        "rec_quarantine",
+        "rec_emergency",
+      ]; // MOST URGENT
+      var current_urgency = 0;
+
       if (answers.length == 0) {
         // If they didn't select anything, don't leave the page
       } else {
-        this.$parent.currentquestion = this.question.answers[answers[0]]; // XXX This needs to select the lowest index answer, currently does the first clicked!
+        answers.forEach(selection => {
+          // Cycle through all the options they selected
+          if (this.question.answers[selection].startsWith("rec_")){
+            // If they've selected a choice that leads to a recommendation
+            // Find the most urgent by storing the maximum
+            current_urgency = Math.max(current_urgency, urgencies.indexOf(this.question.answers[selection]));
+          } else {
+            // Otherwise, head to next question
+            this.$parent.currentquestion = this.question.answers[answers[0]];
+          }
+        })
       }
-
-      if (this.$parent.currentquestion.startsWith("rec_")) {
-        // The next step is a RECOMMENDATION instead of a question
-        this.$parent.recommendation = this.$parent.currentquestion;
+      if (current_urgency){
+        // Some selection has led to a recommendation
+        var most_urgent_selection = urgencies[current_urgency]
+        this.$parent.recommendation = most_urgent_selection;
         this.$parent.selectedpage = "results";
+
         if (window.firebase.auth().currentUser) {
           window.firebase
             .firestore()
@@ -117,7 +138,7 @@ export default {
 }
 
 .answer:hover {
-  background-color: #E4E4E4;
+  background-color: #ccc;
 }
 
 .answer.selected {
