@@ -13,7 +13,8 @@
         <div class="question">Disclaimer</div>
         <div class="rec_detail">
           <ul>
-            <li>You should always follow recommendations from your personal doctor instead of websites.</li>
+            <li>You should always follow recommendations from your personal doctor instead of this website.</li>
+            <li>Some locations are under local mandated quarantine. Please check your local government news to see if you are directly affected.</li>
             <li>This service was not made by medical professionals. However it is the product of substantial research and interviews with multiple doctors, specifically for the COVID-19 pandemic in the USA, but in its attempt to simplify it may miss
               important factors.</li>
             <li>Please do not interpret the information provided here as advice. Our intent is simply to pass on the recommendations of CDC, and provide a framework for thinking about these topics. You can find details about the resources used in
@@ -420,7 +421,9 @@ ul {
   padding-left: 30px;
 }
 
-li {}
+li {
+  padding-bottom: 5px;
+}
 
 a {
   color: #42b983;
