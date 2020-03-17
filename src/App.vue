@@ -21,6 +21,7 @@ export default {
 <style>
 body {
   background-color: white;
+  margin: 0px;
 }
 
 #app {

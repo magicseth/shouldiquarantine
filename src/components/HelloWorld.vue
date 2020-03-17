@@ -632,29 +632,28 @@ button {
   position: fixed;
   width: 100%;
   height: 100%;
-  margin-top: -8px;
-  margin-left: -8px;
 }
 .picc {
   object-fit: cover;
   object-position: 80% 50%;
-  width: 50vw;
-  height: 100vh;
+  width: 50%;
+  height: 100%;
 }
 .container{
   margin-top: 40px;
-  margin-left: 20px;
-  margin-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   min-width: 250px;
+  box-sizing: border-box;
 }
 @media only screen and (min-width: 800px) {
   .bigonly {
     display:block;
   }
   .container{
-    position: absolute;
+    position: fixed;
     right: 0px;
-    width: 45vw;
+    width: 50%;
   }
 }
 </style>
