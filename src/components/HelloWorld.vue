@@ -524,12 +524,13 @@ button {
   display: none;
   position: fixed;
   width: 100%;
-  height: 100%;
+  top: 0px;
+  bottom: 60px;
 }
 
 .picc {
   object-fit: cover;
-  object-position: 80% 50%;
+  object-position: 80% 90%;
   width: 50%;
   height: 100%;
 }
