@@ -206,7 +206,7 @@
               <a target="_blank" href="https://towardsdatascience.com/probability-concepts-explained-bayesian-inference-for-parameter-estimation-90e8930e5348">Bayesian statistics</a> to estimate the likelihood of mortality relative to the average
               confirmed case.
             </li>
-            <li>If a respondent's submission exceeds the average likely mortality, this application recommends
+            <li>If a respondent's submission exceeds the average mortality for a confirmed case (3.4%), this application recommends
               <i>Self-Protective Isolation</i>
             </li>
             <li>All other respondents are recommended to practice
@@ -217,11 +217,24 @@
             </li>
             <li>There are correlations inside the CCDC's data (e.g. age and cardiovascular disease) that are not being accounted for in this model. That means the recommendations lean toward more stringent practices like isolation.</li>
             <li>There are complex interactions between comorbidities that are not accounted for in this model. Instead, the recommendation only uses the highest likelihood factor, and does not multiply multiple pieces of information.</li>
-            <li>The single value mortalities used are as follows:
+            <li>The single value mortality rates used are as follows:
               <ul>
-                <li>Age: [(0-40, 0.32%), (40-50, 0.66%), (50-60,1.93%), (60-70,5.35%), (70-80,11.82%), (80+, 21.93%)]</li>
-                <li>Disease: [(Cardiovascular, 15.65%), (Diabetes, 10.78%), (Respiratory,9.30%), (Hypertension,8.91%), (Cancer,8.33%)]
-                </li>
+                <li><strong>Age</strong></li>
+                <li>0-10 >> 0.00%</li>
+                <li>10-20 >> 0.27%</li>
+                <li>20-30 >> 0.29%</li>
+                <li>30-40 >> 0.35%</li>
+                <li>40-50 >> 0.66%</li>
+                <li>50-60 >> 1.93%</li>
+                <li>60-70 >> 5.35%</li>
+                <li>70-80 >> 11.82%</li>
+                <li>80+ >> 21.93%</li>
+                <li><strong>Disease</strong></li>
+                <li>Cardiovascular >> 15.65%</li>
+                <li>Diabetes >> 10.78%</li>
+                <li>Respiratory >> 9.30%</li>
+                <li>Hypertension >> 8.91%</li>
+                <li>Cancer >> 8.33%</li>
               </ul>
             </li>
             <li>Zipcode data is collected for sharing symptom location data with healthcare professionals, but is not currently used in the calculations.</li>
