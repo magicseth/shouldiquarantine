@@ -3,7 +3,7 @@
     <div class="bigonly"><img class="picc" alt="Photo by kelly-sikkema on Unsplash" src="../assets/tissues.jpg" /></div>
     <div class="container">
       <div class="title" @click="reload()">Should I Quarantine.com</div>
-      <div class="subtitle">Tool to help you understand what to do against COVID-19</div>
+      <div class="subtitle">2-minute quiz to help protect you from COVID-19</div>
       <div v-if="selectedpage== 'questions'">
         <template v-for="(question, qid, index) in questions">
           <question v-if="qid == currentquestion" :question="question" :key="index" />                 
@@ -44,12 +44,7 @@
         </div>
         <div v-if="recommendation== 'rec_quarantine'">
           <div class="question">Based on your responses, you should practice:</div>
-          <div class="recommend">Self-Quarantine</div>
-          <div class="rec_detail">
-            <strong>What is Self-Quarantine?</strong>
-            <br />
-            <br />Self-Quarantine is the physical separation of anyone reasonably believed to have been exposed to COVID-19 in order to prevent its spread.
-          </div>
+          <div class="recommend red" @click="selectedpage='compare'">Self-Quarantine <img class="icon" src="../assets/info_r.png" /></div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
             <br />
@@ -83,12 +78,7 @@
   
         <div v-if="recommendation== 'rec_isolate'">
           <div class="question">Based on your responses, you should practice:</div>
-          <div class="recommend">Self-Isolation</div>
-          <div class="rec_detail">
-            <strong>What is Self-Protective Isolation?</strong>
-            <br />
-            <br />Self-Protective Isolation is physical separation of any person at high risk of severe illness or death, to prevent them from being infected by COVID-19.
-          </div>
+          <div class="recommend orange" @click="selectedpage='compare'">Self-Protective Isolation <img class="icon" src="../assets/info_o.png" /></div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
             <br />
@@ -111,7 +101,7 @@
             <br />
             <br />Self-Protective Isolation helps you avoid contracting COVID-19 from others because you have higher-than-average risk factors.
             <br />People start spreading COVID-19 a week before they show symptoms, so it is important to self-isolate even if no one in your community appears ill.
-            <br />Even if you didn't trigger this recommendation, you may want to voluntarily begin self-isolation if you live with someone who is particularly vulnerable.
+            <br />Even if you didn't trigger this recommendation, you may want to voluntarily begin self-protective isolation if you live with someone who is particularly vulnerable.
           </div>
           <div class="rec_detail">
             <span class="underline" @click="selectedpage='more'"><strong>Learn why you got this recommendation</strong></span>
@@ -120,18 +110,13 @@
   
         <div v-if="recommendation== 'rec_distance'">
           <div class="question">Based on your responses, you should practice:</div>
-          <div class="recommend">Social Distancing</div>
-          <div class="rec_detail">
-            <strong>What is Social Distancing?</strong>
-            <br />
-            <br />Social Distancing means avoiding crowded places where close contact with others can occur.
-          </div>
+          <div class="recommend yellow" @click="selectedpage='compare'">Social Distancing  <img class="icon" src="../assets/info_y.png" /></div>
           <div class="rec_detail">
             <strong>What should I do?</strong>
             <br />
             <ul>
               <li>Avoid malls, theaters, stadiums, bars, parties, etc.</li>
-              <li>Avoid all traveling</li>
+              <li>Avoid all unnecessary travel</li>
               <li>Avoid all groups of 10 or more people</li>
               <li>Reduce the total number of people you see</li>
               <li>Avoid touching your face</li>
@@ -155,6 +140,31 @@
         <br />
         <div class="nav margbot">
           <div class="gray" @click="reload()">Start Again</div>
+          <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
+        </div>
+      </div>
+      <div v-if="selectedpage== 'compare'">
+        <div class="spacer"></div>
+        <div class="recommend red">Self-Quarantine</div>
+        <div class="rec_detail compact">
+          <strong>High Severity</strong>
+          <br />Self-Quarantine is the physical separation of anyone reasonably believed to have been exposed to COVID-19 in order to prevent its spread.
+        </div>
+        <div class="spacer"></div>
+        <div class="recommend orange">Self-Protective Isolation</div>
+        <div class="rec_detail compact">
+          <strong>Medium Severity</strong>
+          <br />Self-Protective Isolation is physical separation of any person at high risk of severe illness or death, to prevent them from being infected by COVID-19.
+        </div>
+        <div class="spacer"></div>
+        <div class="recommend yellow">Social Distancing</div>
+        <div class="rec_detail compact">
+          <strong>Low Severity</strong>
+          <br />Social Distancing means avoiding crowded places where close contact with others can occur.
+        </div>
+        <div class="spacer"></div>
+        <div class="nav margbot">
+          <div class="gray" @click="selectedpage='results'">Back</div>
           <a class="hiddenlink" href="https://www.facebook.com/sharer/sharer.php?u=www.shouldiquarantine.com" target="_blank">Share</a>
         </div>
       </div>
@@ -320,7 +330,7 @@ export default {
             "No": "contact"
           },
           selected: [],
-          back: "symptoms-detail",
+          back: "symptoms",
         },
         "travel-detail": {
           question: "To which countries?",
@@ -343,7 +353,7 @@ export default {
             "Not Sure": "age"
           },
           selected: [],
-          back: "travel-detail",
+          back: "travel",
         },
         age: {
           question: "Are you more than 40 years old?",
@@ -376,7 +386,7 @@ export default {
             "No": "caregiver"
           },
           selected: [],
-          back: "age-detail",
+          back: "age",
         },
         "existing-detail": {
           question: "Which of these medical conditions do you currently have?",
@@ -401,7 +411,7 @@ export default {
             "No": "rec_distance"
           },
           selected: [],
-          back: "existing-detail",
+          back: "existing",
         }
       }
     };
@@ -456,12 +466,13 @@ button {
   width: 100%;
   text-align: center;
   z-index: 1;
-  background-color: #396EF5;
+  background-color: #444;
   margin-top: auto;
   display: flex;
   justify-content: space-between;
   height: 60px;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .footer span {
@@ -542,8 +553,8 @@ button {
   margin-top: 40px;
   padding-left: 20px;
   padding-right: 20px;
-  min-width: 250px;
-  margin-bottom: 60px;
+  min-width: 360px;
+  margin-bottom: 80px;
   box-sizing: border-box;
 }
 
@@ -566,6 +577,18 @@ button {
   color: #396EF5;
 }
 
+.red {
+  color: #E80000;
+}
+
+.orange {
+  color: #F57A35;
+}
+
+.yellow {
+  color: #EAC133;
+}
+
 .rec_detail {
   margin-top: 30px;
   font-size: 14px;
@@ -578,7 +601,20 @@ button {
   color: white;
 }
 
-.margbot{
+.margbot {
   margin-bottom: 40px;
+}
+
+.icon {
+  height: 20px;
+  margin-bottom: -2px;
+}
+
+.spacer {
+  padding: 25px;
+}
+
+.compact {
+  margin-top: -5px;
 }
 </style>

@@ -9,7 +9,7 @@
       <div class="answer"
       v-for="(next_q, answer, index) in question.answers"
       :key="index"
-      :class="{selected:question.selected.includes(answer)}"
+      :class="{selected:question.selected.includes(answer), oneclick:(question.type=='radio')}"
       @click="toggle(next_q, answer)"
       >{{$t(answer)}}</div>
       <div class="nav">
@@ -137,12 +137,13 @@ export default {
   margin-bottom: 25px;
 }
 
-.answer:hover {
-  background-color: #ccc;
+@media only screen and (min-width: 800px) {
+  .answer:hover {
+    background-color: rgb(149, 179, 255);
+  }
 }
-
 .answer.selected {
-  background-color: #E4E4E4;
+  background-color: #ddd;
 }
 
 .answer {
@@ -177,5 +178,11 @@ div.hidden {
 
 div.gray {
   background-color: #C9C9C9;
+}
+
+.oneclick {
+  text-align: center;
+  color: white;
+  background-color: #396EF5;
 }
 </style>
