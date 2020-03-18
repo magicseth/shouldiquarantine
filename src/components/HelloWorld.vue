@@ -31,11 +31,11 @@
       </div>
       <div v-if="selectedpage== 'results'">
         <div v-if="recommendation== 'rec_emergency'">
-          <div class="question">You should proceed to an emergency room immediately.</div>
+          <div class="question">You should proceed to an emergency room immediately, or call 911.</div>
           <div class="rec_detail">
             <strong>The symptoms you described constitute a medical emergency.
             <br />
-            <br />Have someone call the hospital, and describe your symptoms over the phone.
+            <br />You should also call your hospital, and describe your symptoms over the phone.
             </strong>
           </div>
           <div class="rec_detail">
@@ -54,14 +54,16 @@
             <strong>What should I do?</strong>
             <br />
             <ul>
-              <li>Contact your doctor by phone</li>
-              <li>Stay home except to get medical care</li>
-              <li>Ask others to bring you food and supplies</li>
-              <li>Reduce contact with other people and pets in your home</li>
-              <li>Cover your coughs and sneezes</li>
-              <li>Monitor your symptoms for worsening (e.g. difficulty breathing)</li>
+              <li>Contact your doctor by phone if you are showing symptoms</li>
+              <li>Stay home</li>
+              <li>Monitor your health for worsening symptoms (e.g. fever and difficulty breathing)</li>
+              <li>If you need to get medical care, avoid all public transportation</li>
               <li>Prepare to be in quarantine for 2 to 4 weeks</li>
-              <li>Find someone who will check in on you and help you if you get sick</li>
+              <li>Ask someone to bring you food and supplies</li>
+              <li>If you live with others, limit yourself to a "sick room" and use a separate bathroom if possible</li>
+              <li>Cover your coughs and sneezes or wear a facemask</li>
+              <li>Avoid contact with pets, as they can also spread the disease</li>
+              <li>Contact someone who will check in on you and help you if you get sick</li>
               <li>Details:
                 <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html">Centers for Disease Control</a>
               </li>
@@ -71,7 +73,7 @@
             <strong>Why is this important?</strong>
             <br />
             <br />Self-Quarantine helps you prevent the spread of disease to people who are at greater risk of serious illness than yourself, as well as reducing the strain on your local healthcare system.
-            <br />Some people will be quarantined who do not have COVID-19, but this still reduces the spread of disease.
+            <br />Some people will be quarantined who do not have COVID-19, but this still helps to reduce the spread of the disease.
             <br />You start spreading COVID-19 a week before you show symptoms, so it is important to self-quarantine even if you don't appear ill.
           </div>
           <div class="rec_detail">
@@ -93,12 +95,12 @@
             <ul>
               <li>Stay home as much as possible</li>
               <li>Avoid crowds if you need to go out</li>
-              <li>Stock up on food, supplies, and medication</li>
-              <li>Reduce contact with other people and pets in your home</li>
-              <li>Frequently clean and disinfect your hands and living area</li>
-              <li>Monitor yourself for any symptoms (e.g. difficulty breathing)</li>
               <li>Prepare to be in isolation for 2 to 4 weeks</li>
-              <li>Find someone who will check in on you and help you if you get sick</li>
+              <li>Stock up on food, supplies, and medication</li>
+              <li>Minimize close contact with other people and pets in your home</li>
+              <li>Frequently clean and disinfect your hands and living area</li>
+              <li>Regularly monitor yourself for any symptoms (e.g. fever and difficulty breathing)</li>
+              <li>Contact someone who will check in on you and help you if you get sick</li>
               <li>Details:
                 <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/specific-groups/high-risk-complications.html">Centers for Disease Control</a>
               </li>
@@ -247,7 +249,7 @@
     </div>
     <div class="white footer">
       <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
-      <span>Last Update: 2020-03-16</span>
+      <span>Last Update: 2020-03-18</span>
       <span><a
     class="white"
     href="https://github.com/magicseth/shouldiquarantine"
@@ -302,8 +304,8 @@ export default {
             "Persistent Chest Pain": "rec_emergency",
             "Blueish Lips or Face": "rec_emergency",
             "Confusion or Inability to Awaken": "rec_emergency",
-            "Fever": "rec_quarantine",
-            "Persistent Cough": "rec_quarantine",
+            "Fever (100ºF / 38ºC)": "rec_quarantine",
+            "Persistent Dry Cough": "rec_quarantine",
             "Sore Throat": "travel",
             "None of These": "travel"
           },
@@ -385,6 +387,7 @@ export default {
             "Lung Disease (e.g. COPD)": "rec_isolate",
             "Diabetes": "rec_isolate",
             "Heart Disease": "rec_isolate",
+            "Kidney Disease": "rec_isolate",
             "None of These": "caregiver"
           },
           selected: [],
