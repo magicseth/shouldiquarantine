@@ -30,6 +30,12 @@
         </div>
       </div>
       <div v-if="selectedpage== 'results'">
+        <div v-if="recommendation== 'rec_cdc'">
+          <div class="question">People with symptoms should use the CDC's Coronavirus Self Checker</div>
+          <div class="rec_detail">
+            You are now being redirected to <a href="https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/index.html" target="_blank">www.cdc.gov</a>.
+          </div>
+        </div>
         <div v-if="recommendation== 'rec_emergency'">
           <div class="question">You should proceed to an emergency room immediately, or call 911.</div>
           <div class="rec_detail">
@@ -215,20 +221,21 @@
             <li>These statistics are collected from
               <a target="_blank" href="http://weekly.chinacdc.cn/en/article/id/e53946e2-c6c4-41e9-9a9b-fea8db1a8f51">Chinese Center for Disease Control and Prevention</a>
             </li>
+            <li>These age statistics are collected from
+              <a target="_blank" href="https://www.cdc.gov/mmwr/volumes/69/wr/mm6912e2.htm?s_cid=mm6912e2_w#T1_down">US Centers for Disease Control</a>
+            </li>
             <li>There are correlations inside the CCDC's data (e.g. age and cardiovascular disease) that are not being accounted for in this model. That means the recommendations lean toward more stringent practices like isolation.</li>
             <li>There are complex interactions between comorbidities that are not accounted for in this model. Instead, the recommendation only uses the highest likelihood factor, and does not multiply multiple pieces of information.</li>
             <li>The single value mortality rates used are as follows:
               <ul>
                 <li><strong>Age</strong></li>
-                <li>0-10 >> 0.00%</li>
-                <li>10-20 >> 0.27%</li>
-                <li>20-30 >> 0.29%</li>
-                <li>30-40 >> 0.35%</li>
-                <li>40-50 >> 0.66%</li>
-                <li>50-60 >> 1.93%</li>
-                <li>60-70 >> 5.35%</li>
-                <li>70-80 >> 11.82%</li>
-                <li>80+ >> 21.93%</li>
+                <li>0-19 >> 0%</li>
+                <li>20-44 >> 0.15%</li>
+                <li>45-54 >> 0.65%</li>
+                <li>55-64 >> 2.00%</li>
+                <li>65-74 >> 3.80%</li>
+                <li>75-84 >> 7.40%</li>
+                <li>85+ >> 18.85%</li>
                 <li><strong>Disease</strong></li>
                 <li>Cardiovascular >> 15.65%</li>
                 <li>Diabetes >> 10.78%</li>
@@ -272,7 +279,7 @@
     </div>
     <div class="white footer">
       <span class="underline" @click="selectedpage='disclaimer'">{{$t('disclaimer')}}</span>
-      <span>Last Update: 2020-03-18</span>
+      <span>Last Update: 2020-03-20</span>
       <span><a
     class="white"
     href="https://github.com/magicseth/shouldiquarantine"
@@ -313,7 +320,7 @@ export default {
           question: "Are you exhibiting any symptoms?",
           type: "radio",
           answers: {
-            "Yes": "symptoms-detail",
+            "Yes": "rec_cdc",
             "No": "travel"
           },
           selected: [],

@@ -37,6 +37,11 @@ export default {
     question: Object
   },
   methods: {
+    redir() {
+      window.setTimeout(function(){
+          window.open("https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/index.html");
+      }, 10000);
+    },
     toggle(next_q, answer) {
       if (this.question.type == "multiple") {
         var position = this.question.selected.indexOf(answer);
@@ -79,6 +84,7 @@ export default {
         "rec_isolate",
         "rec_quarantine",
         "rec_emergency",
+        "rec_cdc",
       ]; // MOST URGENT
       var current_urgency = 0;
 
@@ -114,6 +120,9 @@ export default {
               question: "recommendation",
               created: window.firebase.firestore.Timestamp.fromDate(new Date())
             });
+        }
+        if (this.$parent.recommendation == 'rec_cdc'){
+          this.redir()
         }
       }
     }
